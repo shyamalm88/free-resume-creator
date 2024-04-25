@@ -39,10 +39,7 @@ const steps = [
   },
   {
     label: "Language Known",
-    description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`,
+    description: ``,
   },
   {
     label: "Summary",
@@ -50,12 +47,21 @@ const steps = [
   },
 ];
 const LeftDrawer = ({ drawerWidth }: any) => {
-  const { activeStep, setNextButtonText, setOptionalButtonText } =
-    useResumeStageContextProvider();
+  const {
+    activeStep,
+    setNextButtonText,
+    setOptionalButtonText,
+    setActiveStep,
+  } = useResumeStageContextProvider();
   console.log(activeStep);
 
   React.useEffect(() => {
-    setNextButtonText(steps[activeStep + 1].label);
+    if (steps[activeStep + 1]) {
+      setNextButtonText(steps[activeStep + 1].label);
+    } else {
+      setNextButtonText("");
+    }
+
     if (activeStep === 0) {
       setOptionalButtonText("Personal Details");
     } else {
@@ -84,8 +90,13 @@ const LeftDrawer = ({ drawerWidth }: any) => {
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
             <Step key={step.label}>
-              <StepLabel sx={{ color: "#fff" }}>
-                <span style={{ color: "#fff" }}>{step.label}</span>
+              <StepLabel
+                sx={{ color: "#fff", cursor: "pointer" }}
+                onClick={() => setActiveStep(index)}
+              >
+                <span style={{ color: "#fff", cursor: "pointer" }}>
+                  {step.label}
+                </span>
               </StepLabel>
               <StepContent TransitionProps={{ unmountOnExit: false }}>
                 <Typography>{step.description}</Typography>

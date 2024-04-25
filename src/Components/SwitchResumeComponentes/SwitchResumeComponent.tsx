@@ -8,6 +8,7 @@ const Certifications = React.lazy(
 const LanguageKnown = React.lazy(
   () => import("../LanguageKnown/LanguageKnown")
 );
+const Summary = React.lazy(() => import("../Summary/Summary"));
 const PersonalInfo = React.lazy(() => import("../PersonalInfo/PersonalInfo"));
 const ProfessionalExperience = React.lazy(
   () => import("../ProfessionalExperience/ProfessionalExperience")
@@ -60,6 +61,12 @@ export const SwitchResumeComponent = ({
       return (
         <Suspense fallback={<FormSkeleton />}>
           <LanguageKnown />
+        </Suspense>
+      );
+    case 7:
+      return (
+        <Suspense fallback={<FormSkeleton />}>
+          <Summary />
         </Suspense>
       );
     default:

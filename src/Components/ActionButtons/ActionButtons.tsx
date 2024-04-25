@@ -11,6 +11,8 @@ const ActionButtons = () => {
     handleNext();
   };
 
+  const handleSubmit = () => {};
+
   return (
     <>
       <Box sx={{ p: 2 }}>
@@ -35,7 +37,7 @@ const ActionButtons = () => {
             >
               Preview
             </Button>
-            {nextButtonText && (
+            {nextButtonText ? (
               <Button
                 variant="outlined"
                 color="success"
@@ -43,6 +45,15 @@ const ActionButtons = () => {
                 className="customActionBtn next"
               >
                 Next: {nextButtonText}
+              </Button>
+            ) : (
+              <Button
+                variant="outlined"
+                color="success"
+                onClick={handleSubmit}
+                className="customActionBtn next"
+              >
+                Submit
               </Button>
             )}
           </Stack>

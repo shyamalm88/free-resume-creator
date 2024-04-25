@@ -37,6 +37,12 @@ const ResumeStageContextProvider = ({ children }: any) => {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  React.useEffect(() => {
+    console.log("=====================");
+    console.log(activeStep);
+  }, [activeStep]);
+
   return (
     <ResumeStageContext.Provider
       value={{
