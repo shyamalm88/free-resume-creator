@@ -1,5 +1,9 @@
 import {
   Box,
+  Button,
+  CardActions,
+  CardContent,
+  Container,
   Grid,
   InputAdornment,
   InputLabel,
@@ -11,12 +15,28 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import PersonalLinks from "../PersonalLinks/PersonalLinks";
 import { useFormContext } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
+import { templateData } from "../../data/templateData";
+
+import BootStrapDialog, {
+  Content,
+  Footer,
+} from "../Common/BootStrapDialog/BootStrapDialog";
+import React from "react";
+import Template1 from "../ResumeTemplates/Template1";
+import Template2 from "../ResumeTemplates/Template2";
+
+const components = {
+  Template1,
+  Template2,
+};
 
 function PersonalInfo() {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+  const [openTemplateChooseModal, setOpenTemplateChooseModal] =
+    React.useState(false);
   return (
     <Grid
       container
@@ -232,7 +252,93 @@ function PersonalInfo() {
         </Box>
         <PersonalLinks />
       </Grid>
-      <Grid item xs={4}></Grid>
+      <Grid item xs={4} sx={{ mt: 10 }}>
+        <Box
+          sx={{
+            border: "1px solid #ccc",
+            background: "#fff",
+            overflow: "hidden",
+            maxHeight: "540px",
+            display: "flex",
+            marginLeft: "auto",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              transform: "scale(0.494)",
+              position: "relative",
+              top: "-120px",
+            }}
+          >
+            <Template1 />
+          </div>
+        </Box>
+        <Box sx={{ justifyContent: "center", display: "flex", mt: 4 }}>
+          <Button
+            variant="outlined"
+            className="customActionBtn"
+            onClick={() => setOpenTemplateChooseModal(true)}
+          >
+            Change Template
+          </Button>
+        </Box>
+
+        <BootStrapDialog
+          open={openTemplateChooseModal}
+          setOpen={setOpenTemplateChooseModal}
+          title="Choose From Templates"
+        >
+          <Content>
+            <Container>
+              <Box sx={{ display: "flex" }}>
+                {templateData.map((item) => {
+                  const SpecificComponent = (components as any)[item.template];
+                  return (
+                    <Box sx={{ maxWidth: 275 }} key={item.id}>
+                      <CardContent>
+                        <Typography sx={{ fontSize: 14 }} gutterBottom>
+                          {item.template}
+                        </Typography>
+                        <Box
+                          sx={{
+                            border: "1px solid #ccc",
+                            background: "#fff",
+                            maxHeight: "340px",
+                            display: "flex",
+                            marginLeft: "auto",
+                            justifyContent: "center",
+                            overflowY: "auto",
+                            overflowX: "hidden",
+                          }}
+                        >
+                          <div
+                            style={{
+                              transform: "scale(0.294)",
+                              position: "relative",
+                              top: "-110px",
+                            }}
+                          >
+                            <SpecificComponent />
+                          </div>
+                        </Box>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Choose</Button>
+                      </CardActions>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Container>
+          </Content>
+          <Footer>
+            <Button autoFocus onClick={() => setOpenTemplateChooseModal(false)}>
+              Save changes
+            </Button>
+          </Footer>
+        </BootStrapDialog>
+      </Grid>
     </Grid>
   );
 }

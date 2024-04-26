@@ -11,7 +11,9 @@ const ActionButtons = () => {
     handleNext();
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    document.getElementById("submit")?.click();
+  };
 
   return (
     <>

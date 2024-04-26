@@ -108,7 +108,11 @@ export default function Editor({
         <MenuBar editor={editor} editable={editable} />
         <EditorContent
           editor={editor}
-          style={{ minHeight: "100px" }}
+          style={{
+            minHeight: "100px",
+            overflow: "auto",
+            border: "1px solid #ccc",
+          }}
           onClick={handleEditorClick}
         />
       </div>

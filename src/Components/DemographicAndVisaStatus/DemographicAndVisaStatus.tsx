@@ -5,21 +5,18 @@ import {
   InputLabel,
   TextField,
   Typography,
-  DialogTitle,
-  IconButton,
-  DialogContent,
-  DialogActions,
-  Dialog,
   Button,
   Stack,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { styled } from "@mui/material/styles";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import InfoIcon from "@mui/icons-material/Info";
 
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import BootStrapDialog, {
+  Content,
+  Footer,
+} from "../Common/BootStrapDialog/BootStrapDialog";
 
 type FormValues = {
   gender: "";
@@ -27,14 +24,6 @@ type FormValues = {
   passport: "";
   nationality: "";
 };
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
 
 const DemographicAndVisaStatus = ({
   open,
@@ -48,28 +37,12 @@ const DemographicAndVisaStatus = ({
     formState: { errors },
   } = useFormContext<FormValues>();
   return (
-    <BootstrapDialog
-      onClose={() => setOpen(false)}
-      aria-labelledby="customized-dialog-title"
+    <BootStrapDialog
       open={open}
-      maxWidth="lg"
+      setOpen={setOpen}
+      title="Demo Graphic & Visa Details"
     >
-      <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Demo Graphic & Visa Details
-      </DialogTitle>
-      <IconButton
-        aria-label="close"
-        onClick={() => setOpen(false)}
-        sx={{
-          position: "absolute",
-          right: 8,
-          top: 8,
-          color: (theme) => theme.palette.grey[500],
-        }}
-      >
-        <CloseIcon />
-      </IconButton>
-      <DialogContent dividers>
+      <Content>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -184,13 +157,13 @@ const DemographicAndVisaStatus = ({
             </Box>
           </Grid>
         </Grid>
-      </DialogContent>
-      <DialogActions>
+      </Content>
+      <Footer>
         <Button autoFocus onClick={() => setOpen(false)}>
           Save changes
         </Button>
-      </DialogActions>
-    </BootstrapDialog>
+      </Footer>
+    </BootStrapDialog>
   );
 };
 
