@@ -26,8 +26,8 @@ export const SwitchResumeComponent = ({
     case 0:
       return (
         <Suspense fallback={<FormSkeleton />}>
-          {/* <PersonalInfo /> */}
-          <Template1 />
+          <PersonalInfo />
+          {/* <Template1 /> */}
         </Suspense>
       );
     case 1:
