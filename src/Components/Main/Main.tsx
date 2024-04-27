@@ -32,7 +32,7 @@ const defaultValues = {
 };
 const Main = () => {
   const { activeStep } = useResumeStageContextProvider();
-  const methods = useForm();
+  const methods = useForm({mode: "onChange"});
   const onSubmit = (data: any) => {
     console.log(data);
     localStorage.setItem("resumeData", JSON.stringify(data));
@@ -52,7 +52,7 @@ const Main = () => {
           <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
             <ActionButtons />
           </Box>
-          <input type="submit" id="submit" style={{ visibility: "hidden" }} />
+          <input type="submit" id="submit" style={{ visibility: "visible" }} />
         </form>
       </Container>
     </FormProvider>
