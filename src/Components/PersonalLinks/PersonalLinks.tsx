@@ -20,6 +20,7 @@ type FormValues = {
 const PersonalLinks = () => {
   const {
     register,
+    getValues,
     formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   return (
@@ -51,7 +52,7 @@ const PersonalLinks = () => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    {dirtyFields.linkedin ? !errors.linkedin ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                    {dirtyFields.linkedin ? !errors.linkedin ? getValues(`linkedin`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                   </InputAdornment>
                 ),
               }}
@@ -77,7 +78,7 @@ const PersonalLinks = () => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    {dirtyFields.personalWebSite ? !errors.personalWebSite ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                    {dirtyFields.personalWebSite ? !errors.personalWebSite ? getValues(`personalWebSite`) ? <TaskAltIcon color="success" /> : <></>  : <ErrorOutlineIcon color="error" /> : <></>}
                   </InputAdornment>
                 ),
               }}
@@ -101,7 +102,7 @@ const PersonalLinks = () => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    {dirtyFields.github ? !errors.github ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                    {dirtyFields.github ? !errors.github ? getValues(`personalWebSite`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                   </InputAdornment>
                 ),
               }}

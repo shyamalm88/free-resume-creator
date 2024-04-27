@@ -193,7 +193,7 @@ const Template1 = () => {
               <div
                 style={{ wordWrap: "break-word" }}
                 dangerouslySetInnerHTML={{
-                  __html: he.decode(data.summary[0].profileSummary),
+                  __html: data.summary ? he.decode(data.summary?.[0].profileSummary) : "",
                 }}
               ></div>
             ) : (

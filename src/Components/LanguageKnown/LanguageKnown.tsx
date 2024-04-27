@@ -11,6 +11,8 @@ import {
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
+import FormValidationError from "../Common/FormValidationError/FormValidationError";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -28,7 +30,8 @@ const LanguageKnown = () => {
   const {
     register,
     control,
-    formState: { errors },
+    getValues,
+    formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray({
     name: "language",
@@ -79,17 +82,21 @@ const LanguageKnown = () => {
                         {...register(
                           `language.${index}.languageKnown` as const,
                           {
-                            required: true,
+                            pattern: {
+                              value: /^[a-zA-Z]*$/,
+                              message: "Only Alphabets are allowed."
+                            },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                               {dirtyFields?.language?.[index]?.languageKnown ? !errors?.language?.[index]?.languageKnown ? getValues(`language.${index}.languageKnown`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.language?.[index]?.languageKnown?.message}/>
                     </Grid>
                   </Grid>
                 </Box>

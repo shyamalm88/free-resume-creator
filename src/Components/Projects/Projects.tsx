@@ -15,6 +15,8 @@ import AddIcon from "@mui/icons-material/Add";
 import TipTapEditor from "../Common/Tiptap/TipTap";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import FormValidationError from "../Common/FormValidationError/FormValidationError";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -24,7 +26,7 @@ for (let i = nowYear; i > nowYear - 60; i--) {
 
 type FormValues = {
   projects: {
-    title: string;
+    title: string | null;
     description: string;
   }[];
 };
@@ -34,7 +36,8 @@ const Projects = () => {
     register,
     setValue,
     control,
-    formState: { errors },
+    getValues,
+    formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray({
     name: "projects",
@@ -46,7 +49,7 @@ const Projects = () => {
     if (fields.length === 0) {
       remove(0);
       append({
-        title: "",
+        title: null,
         description: "",
       });
     }
@@ -106,16 +109,24 @@ const Projects = () => {
                         fullWidth
                         size="small"
                         {...register(`projects.${index}.title` as const, {
-                          required: true,
+                          pattern: {
+                            value: /^[a-z\d\-_\s]+$/i,
+                            message: "Only Alphanumeric characters and spaces are allowed."
+                          },
+                          minLength: {
+                            value: 2,
+                            message: "Please Provide Project Name"
+                          },
                         })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                              {dirtyFields?.projects?.[index]?.title ? !errors?.projects?.[index]?.title ? getValues(`projects.${index}.title`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.projects?.[index]?.title?.message}/>
                     </Grid>
                   </Grid>
                 </Box>
@@ -154,7 +165,7 @@ const Projects = () => {
           startIcon={<AddIcon />}
           onClick={() =>
             append({
-              title: "",
+              title: null,
               description: "",
             })
           }

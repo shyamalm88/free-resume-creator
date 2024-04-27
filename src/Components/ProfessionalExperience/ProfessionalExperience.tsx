@@ -21,6 +21,9 @@ import TipTapEditor from "../Common/Tiptap/TipTap";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
 import { Month } from "../../data/Month";
+import FormValidationError from "../Common/FormValidationError/FormValidationError";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
 for (let i = nowYear; i > nowYear - 60; i--) {
@@ -29,15 +32,15 @@ for (let i = nowYear; i > nowYear - 60; i--) {
 
 type FormValues = {
   experience: {
-    jobTitle: string;
-    company: string;
-    startMonth: string;
+    jobTitle: string | null;
+    company: string | null;
+    startMonth: string | null;
     startYear: number | null;
-    endMonth: string;
+    endMonth: string | null;
     endYear: number | null;
-    isCurrentJob: boolean;
-    location: string;
-    description: string;
+    isCurrentJob: boolean | null;
+    location: string | null;
+    description: string | null;
   }[];
 };
 
@@ -46,7 +49,10 @@ const ProfessionalExperience = () => {
     register,
     control,
     setValue,
-    formState: { errors },
+    getValues,
+    watch,
+    trigger,
+    formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray({
     name: "experience",
@@ -58,14 +64,14 @@ const ProfessionalExperience = () => {
     if (fields.length === 0) {
       remove(0);
       append({
-        jobTitle: "",
-        company: "",
-        startMonth: "",
+        jobTitle: null,
+        company: null,
+        startMonth: null,
         startYear: null,
-        endMonth: "",
+        endMonth: null,
         endYear: null,
         isCurrentJob: false,
-        location: "",
+        location: null,
         description: "",
       });
     }
@@ -78,6 +84,9 @@ const ProfessionalExperience = () => {
       shouldTouch: true,
     });
   };
+
+  const watchExperience = watch("experience");
+  
 
   return (
     <>
@@ -124,16 +133,24 @@ const ProfessionalExperience = () => {
                         fullWidth
                         size="small"
                         {...register(`experience.${index}.jobTitle` as const, {
-                          required: true,
+                          required: {
+                            value: true,
+                            message: "This field cannot be empty."
+                          },
+                          pattern: {
+                            value: /^[a-z\d\-_\s]+$/i,
+                            message: "Only Alphanumeric characters and spaces are allowed."
+                          },
                         })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                              {dirtyFields?.experience?.[index]?.jobTitle ? !errors?.experience?.[index]?.jobTitle ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                       <FormValidationError errorText={errors?.experience?.[index]?.jobTitle?.message}/>
                     </Grid>
                     <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
                       <InputLabel className="formControl-label">
@@ -146,16 +163,24 @@ const ProfessionalExperience = () => {
                         fullWidth
                         size="small"
                         {...register(`experience.${index}.company` as const, {
-                          required: true,
+                          required: {
+                            value: true,
+                            message: "This field cannot be empty."
+                          },
+                          pattern: {
+                            value: /^[a-z\d\-_\s]+$/i,
+                            message: "Only Alphanumeric characters and spaces are allowed."
+                          },
                         })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                              {dirtyFields?.experience?.[index]?.company ? !errors?.experience?.[index]?.company ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.experience?.[index]?.company?.message}/>
                     </Grid>
 
                     <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
@@ -168,15 +193,22 @@ const ProfessionalExperience = () => {
                         placeholder="e.g. Bengaluru"
                         fullWidth
                         size="small"
-                        {...register(`experience.${index}.location`)}
+                        {...register(`experience.${index}.location` as const, {
+                          pattern: {
+                            value: /^[a-zA-Z]*$/,
+                            message: "Only Alphabets are allowed."
+                          },
+                        })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                              {dirtyFields?.experience?.[index]?.location ? !errors?.experience?.[index]?.location ? getValues(`experience.${index}.location`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.experience?.[index]?.location?.message}/>
+
                     </Grid>
                   </Grid>
                 </Box>
@@ -194,7 +226,15 @@ const ProfessionalExperience = () => {
                         <Select
                           fullWidth
                           placeholder="Month"
-                          {...register(`experience.${index}.startMonth`)}
+                          {...register(`experience.${index}.startMonth` as const, {
+                            required: {
+                              value: true,
+                              message: "Start Month is required."
+                            },
+                            
+                          })}
+                          onBlur={()=>trigger(`experience.${index}.startMonth`)}
+
                         >
                           {Month.map((x) => {
                             return (
@@ -207,6 +247,7 @@ const ProfessionalExperience = () => {
                             );
                           })}
                         </Select>
+                        <FormValidationError errorText={errors?.experience?.[index]?.startMonth?.message}/>
                         <FormGroup>
                           <FormControlLabel
                             control={
@@ -225,9 +266,15 @@ const ProfessionalExperience = () => {
                           &nbsp;
                         </InputLabel>
                         <Select
-                          fullWidth
+                          fullWidth                          
                           placeholder="Month"
-                          {...register(`experience.${index}.startYear`)}
+                          {...register(`experience.${index}.startYear` as const, {
+                            required: {
+                              value: true,
+                              message: "Start Year is required."
+                            },
+                          })}
+                          onBlur={()=>trigger(`experience.${index}.startYear`)}
                         >
                           {Year.map((x) => {
                             return (
@@ -237,6 +284,7 @@ const ProfessionalExperience = () => {
                             );
                           })}
                         </Select>
+                        <FormValidationError errorText={errors?.experience?.[index]?.startYear?.message}/>
                       </Grid>
                     </Grid>
                     <Grid
@@ -244,14 +292,20 @@ const ProfessionalExperience = () => {
                       spacing={{ xs: 2, md: 3 }}
                       columns={{ xs: 12, sm: 12, md: 12 }}
                     >
-                      <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
+                      {!watchExperience?.[index]?.isCurrentJob && <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
                         <InputLabel className="formControl-label">
                           End Date
                         </InputLabel>
                         <Select
                           fullWidth
+                          disabled={!getValues(`experience.${index}.isCurrentJob`)}
                           placeholder="Month"
-                          {...register(`experience.${index}.endMonth`)}
+                          {...register(`experience.${index}.endMonth` as const, {
+                            required: {
+                              value: !getValues(`experience.${index}.isCurrentJob`),
+                              message: "End Month is required."
+                            },
+                          })}
                         >
                           {Month.map((x) => {
                             return (
@@ -264,15 +318,22 @@ const ProfessionalExperience = () => {
                             );
                           })}
                         </Select>
-                      </Grid>
-                      <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
+                        <FormValidationError errorText={errors?.experience?.[index]?.endMonth?.message}/>
+                      </Grid>}
+                      {!watchExperience?.[index]?.isCurrentJob && <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
                         <InputLabel className="formControl-label">
                           &nbsp;
                         </InputLabel>
                         <Select
                           fullWidth
-                          placeholder="Month"
-                          {...register(`experience.${index}.endYear`)}
+                          disabled={!getValues(`experience.${index}.isCurrentJob`)}
+                          placeholder="Year"
+                          {...register(`experience.${index}.endYear`, {
+                            required: {
+                              value: !getValues(`experience.${index}.isCurrentJob`),
+                              message: "End Year is required."
+                            },
+                          })}
                         >
                           {Year.map((x) => {
                             return (
@@ -282,7 +343,8 @@ const ProfessionalExperience = () => {
                             );
                           })}
                         </Select>
-                      </Grid>
+                        <FormValidationError errorText={errors?.experience?.[index]?.endYear?.message}/>
+                      </Grid>}
                     </Grid>
                   </Stack>
                 </Box>
@@ -320,14 +382,14 @@ const ProfessionalExperience = () => {
           startIcon={<AddIcon />}
           onClick={() =>
             append({
-              jobTitle: "",
-              company: "",
-              startMonth: "",
+              jobTitle: null,
+              company: null,
+              startMonth: null,
               startYear: null,
-              endMonth: "",
+              endMonth: null,
               endYear: null,
               isCurrentJob: false,
-              location: "",
+              location: null,
               description: "",
             })
           }

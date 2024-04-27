@@ -16,6 +16,8 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
+import FormValidationError from "../Common/FormValidationError/FormValidationError";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import { Month } from "../../data/Month";
 import { Degree } from "../../data/degree";
@@ -40,7 +42,8 @@ const Education = () => {
   const {
     register,
     control,
-    formState: { errors },
+    getValues,
+    formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray({
     name: "education",
@@ -108,17 +111,21 @@ const Education = () => {
                         {...register(
                           `education.${index}.institutionName` as const,
                           {
-                            required: true,
+                            pattern: {
+                              value: /^[a-z\d\-_\s]+$/i,
+                              message: "Only Alphanumeric characters and spaces are allowed."
+                            },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                              {dirtyFields?.education?.[index]?.institutionName ? !errors?.education?.[index]?.institutionName ? getValues(`education.${index}.institutionName`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.education?.[index]?.institutionName?.message}/>
                     </Grid>
                     <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
                       <InputLabel className="formControl-label">
@@ -133,17 +140,21 @@ const Education = () => {
                         {...register(
                           `education.${index}.fieldOfStudy` as const,
                           {
-                            required: true,
+                            pattern: {
+                              value: /^[a-z\d\-_\s]+$/i,
+                              message: "Only Alphanumeric characters and spaces are allowed."
+                            },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                              {dirtyFields?.education?.[index]?.fieldOfStudy ? !errors?.education?.[index]?.fieldOfStudy ? getValues(`education.${index}.fieldOfStudy`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.education?.[index]?.fieldOfStudy?.message}/>
                     </Grid>
 
                     <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
@@ -156,15 +167,21 @@ const Education = () => {
                         placeholder="e.g. Bengaluru"
                         fullWidth
                         size="small"
-                        {...register(`education.${index}.location`)}
+                        {...register(`education.${index}.location`as const, {
+                          pattern: {
+                            value: /^[a-zA-Z]*$/,
+                            message: "Only Alphabets are allowed."
+                          },
+                        })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                               {dirtyFields?.education?.[index]?.location ? !errors?.education?.[index]?.location ? getValues(`education.${index}.location`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                      <FormValidationError errorText={errors?.education?.[index]?.location?.message}/>
                     </Grid>
                   </Grid>
                 </Box>

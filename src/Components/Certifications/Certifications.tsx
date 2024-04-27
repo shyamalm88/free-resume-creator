@@ -16,6 +16,8 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
+import FormValidationError from "../Common/FormValidationError/FormValidationError";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import { Month } from "../../data/Month";
 const Year: any[] = [];
@@ -37,8 +39,9 @@ type FormValues = {
 const Certifications = () => {
   const {
     register,
+    getValues,
     control,
-    formState: { errors },
+    formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray({
     name: "certifications",
@@ -108,17 +111,21 @@ const Certifications = () => {
                         {...register(
                           `certifications.${index}.certificationName` as const,
                           {
-                            required: true,
+                            pattern: {
+                              value: /^[a-z\d\-_\s]+$/i,
+                              message: "Only Alphanumeric characters and spaces are allowed."
+                            },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <TaskAltIcon />
+                               {dirtyFields?.certifications?.[index]?.certificationName ? !errors?.certifications?.[index]?.certificationName ? getValues(`certifications.${index}.certificationName`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                             </InputAdornment>
                           ),
                         }}
                       />
+                       <FormValidationError errorText={errors?.certifications?.[index]?.certificationName?.message}/>
                     </Grid>
                   </Grid>
                 </Box>

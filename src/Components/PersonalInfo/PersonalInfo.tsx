@@ -35,6 +35,7 @@ const components = {
 function PersonalInfo() {
   const {
     register,
+    getValues,
     formState: { errors, isDirty, dirtyFields },
   } = useFormContext();
   const [openTemplateChooseModal, setOpenTemplateChooseModal] =
@@ -131,7 +132,7 @@ function PersonalInfo() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                     {dirtyFields.middleName ? !errors.middleName ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                     {dirtyFields.middleName ? !errors.middleName ?  getValues(`middleName`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                     </InputAdornment>
                   ),
                 }}
@@ -189,7 +190,7 @@ function PersonalInfo() {
                   },
                   pattern: {
                     value: /^[a-z\d\-_\s]+$/i,
-                    message: "Only Alphanumeric characters with spaces are allowed."
+                    message: "Only Alphanumeric characters and spaces are allowed."
                   },
                   minLength: {
                     value: 4,
@@ -222,13 +223,13 @@ function PersonalInfo() {
                 {...register(`city` as const, {
                   pattern: {
                     value: /^[a-z\d\-_\s]+$/i,
-                    message: "Only Alphanumeric characters with spaces are allowed."
+                    message: "Only Alphanumeric characters and spaces are allowed."
                   },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.city ? !errors.city ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.city ? !errors.city ? getValues(`city`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                     </InputAdornment>
                   ),
                 }}
@@ -246,13 +247,13 @@ function PersonalInfo() {
                 {...register(`country` as const, {
                   pattern: {
                     value: /^[a-z\d\-_\s]+$/i,
-                    message: "Only Alphanumeric characters with spaces are allowed."
+                    message: "Only Alphanumeric characters and spaces are allowed."
                   },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.country ? !errors.country ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.country ? !errors.country ? getValues(`country`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                     </InputAdornment>
                   ),
                 }}
@@ -277,7 +278,7 @@ function PersonalInfo() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.pinCode ? !errors.pinCode ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.pinCode ? !errors.pinCode ? getValues(`pinCode`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
                     </InputAdornment>
                   ),
                 }}
