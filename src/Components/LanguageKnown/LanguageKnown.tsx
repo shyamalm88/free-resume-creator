@@ -13,6 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -54,7 +55,7 @@ const LanguageKnown = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <Box sx={{ m: 2, mb: 4 }}>
             <Typography variant="h3">
               Tell us about your Fluency in which Languages
@@ -104,6 +105,7 @@ const LanguageKnown = () => {
             );
           })}
         </Grid>
+        <ResumeTemplateChoose/>
       </Grid>
 
       <Box sx={{ px: 2 }}>

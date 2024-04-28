@@ -22,8 +22,8 @@ const steps = [
       "Highlighting the significance of professional experience on a resume is crucial as it illustrates your practical application of skills and expertise in real-world scenarios, demonstrating your capability to contribute effectively in a professional setting.",
   },
   {
-    label: "Technical Skills",
-    description: `Stressing the importance of technical skills on a resume is vital as it demonstrates your proficiency in relevant tools and technologies, making you a valuable candidate for positions that require specific expertise.`,
+    label: "Skills",
+    description: `Stressing the importance of skills on a resume is vital as it demonstrates your proficiency in relevant tools and technologies, making you a valuable candidate for positions that require specific expertise.`,
   },
   {
     label: "Projects",

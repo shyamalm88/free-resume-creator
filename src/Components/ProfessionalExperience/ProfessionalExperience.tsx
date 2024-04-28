@@ -23,6 +23,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Month } from "../../data/Month";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -95,7 +96,7 @@ const ProfessionalExperience = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <Box sx={{ m: 2, mb: 4 }}>
             <Typography variant="h3">
               Tell us about your most recent job
@@ -298,7 +299,7 @@ const ProfessionalExperience = () => {
                         </InputLabel>
                         <Select
                           fullWidth
-                          disabled={!getValues(`experience.${index}.isCurrentJob`)}
+                          // disabled={!getValues(`experience.${index}.isCurrentJob`)}
                           placeholder="Month"
                           {...register(`experience.${index}.endMonth` as const, {
                             required: {
@@ -326,7 +327,7 @@ const ProfessionalExperience = () => {
                         </InputLabel>
                         <Select
                           fullWidth
-                          disabled={!getValues(`experience.${index}.isCurrentJob`)}
+                          // disabled={!getValues(`experience.${index}.isCurrentJob`)}
                           placeholder="Year"
                           {...register(`experience.${index}.endYear`, {
                             required: {
@@ -371,7 +372,9 @@ const ProfessionalExperience = () => {
             );
           })}
         </Grid>
+        <ResumeTemplateChoose/>
       </Grid>
+      
 
       <Box sx={{ px: 2 }}>
         <Button

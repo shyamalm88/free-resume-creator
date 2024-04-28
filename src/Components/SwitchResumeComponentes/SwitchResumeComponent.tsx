@@ -1,7 +1,8 @@
 import React, { Suspense } from "react";
 import FormSkeleton from "../Common/Skeleton/Skeletons";
-import Template1 from "../ResumeTemplates/Template1";
-import Template2 from "../ResumeTemplates/Template2";
+const Template1 = React.lazy(() => import("../ResumeTemplates/Template1"));
+const Template2 = React.lazy(() => import("../ResumeTemplates/Template2"));
+
 const Projects = React.lazy(() => import("../Projects/Projects"));
 const Education = React.lazy(() => import("../Education/Education"));
 const Certifications = React.lazy(
@@ -27,7 +28,7 @@ export const SwitchResumeComponent = ({
       return (
         <Suspense fallback={<FormSkeleton />}>
           <PersonalInfo />
-          {/* <Template1 /> */}
+          {/* <Template2 /> */}
         </Suspense>
       );
     case 1:

@@ -16,6 +16,7 @@ import {
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { v4 as uuidv4 } from "uuid";
 import InfoIcon from "@mui/icons-material/Info";
+import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 
 const filter = createFilterOptions<any>();
 function Skills() {
@@ -39,6 +40,10 @@ function Skills() {
   React.useEffect(() => {
     setValue("softSkills", softSkills);
   }, [softSkills]);
+
+  React.useEffect(() => {
+    setValue("tools", tools);
+  }, [tools]);
 
   return (
     <Grid
@@ -263,7 +268,7 @@ function Skills() {
           </Grid>
         </Box>
       </Grid>
-      <Grid item xs={4}></Grid>
+      <ResumeTemplateChoose/>
     </Grid>
   );
 }

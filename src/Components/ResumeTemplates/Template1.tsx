@@ -1,35 +1,25 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import StayPrimaryPortraitIcon from "@mui/icons-material/StayPrimaryPortrait";
 import EmailIcon from "@mui/icons-material/Email";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import LanguageIcon from "@mui/icons-material/Language";
 import he from "he";
-
-const localStorageData = JSON.parse(localStorage.getItem("resumeData") || "{}");
+import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
 
 const Template1 = () => {
-  const [data, setData] = React.useState(localStorageData);
-  const isNonEmpty = Object.keys(data).length > 0;
+  const context = useResumeDataContextProvider();
+  const [data, setData] = React.useState(context.resumeData);
   console.log(data);
+
   return (
-    <Grid container>
+    <Grid container sx={{ p: 2 }}>
       <Grid item xs={12}>
         <Typography variant="h4" sx={{ textAlign: "center" }}>
-          {isNonEmpty ? (
-            <>
-              {data.firstName} {data.middleName} {data.lastName}
-            </>
-          ) : (
-            "John Doe"
-          )}
+          <>
+            {data.firstName} {data.middleName} {data.lastName}
+          </>
         </Typography>
         <Stack
           direction="row"
@@ -42,21 +32,21 @@ const Template1 = () => {
             component="div"
             sx={{ textAlign: "center", color: "#8d8d8d", fontSize: ".7rem" }}
           >
-            {isNonEmpty ? <>{data.city}</> : "Bengalore"}
+            <>{data.city}</>
           </Typography>
           <Typography
             variant="body1"
             component="div"
             sx={{ textAlign: "center", color: "#8d8d8d", fontSize: ".7rem" }}
           >
-            {isNonEmpty ? <>{data.country}</> : "India"}
+            <>{data.country}</>
           </Typography>
           <Typography
             variant="body1"
             component="div"
             sx={{ textAlign: "center", color: "#8d8d8d", fontSize: ".7rem" }}
           >
-            {isNonEmpty ? <>{data.profession}</> : ""}
+            <>{data.profession}</>
           </Typography>
         </Stack>
       </Grid>
@@ -67,6 +57,7 @@ const Template1 = () => {
             divider={<Divider orientation="vertical" flexItem />}
             gap={1}
             justifyContent="center"
+            flexWrap={"wrap"}
           >
             <Stack
               direction="row"
@@ -86,8 +77,8 @@ const Template1 = () => {
                   fontSize: ".7rem",
                 }}
               >
-                <a href={`tel:${isNonEmpty ? data.mobileNo : "9876543210"}`}>
-                  +91 {isNonEmpty ? <>{data.mobileNo}</> : "9876543210"}
+                <a href={`tel:${data.mobileNo}`}>
+                  +91 <>{data.mobileNo}</>
                 </a>
               </Typography>
             </Stack>
@@ -106,77 +97,79 @@ const Template1 = () => {
                   fontSize: ".7rem",
                 }}
               >
-                <a
-                  href={`mailto:${
-                    isNonEmpty ? data.email : "john.doe@gmail.com"
-                  }`}
-                >
-                  {isNonEmpty ? <>{data.email}</> : "john.doe@gmail.com"}
-                </a>
+                <a href={`mailto:${data.email}`}>{<>{data.email}</>}</a>
               </Typography>
             </Stack>
-            <Stack
-              direction="row"
-              gap={1}
-              justifyContent="center"
-              alignItems={"center"}
-            >
-              <LinkedInIcon fontSize="small" sx={{ fontSize: ".7rem" }} />
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  textAlign: "center",
-                  fontSize: ".7rem",
-                }}
+            {data.linkedin && (
+              <Stack
+                direction="row"
+                gap={1}
+                justifyContent="center"
+                alignItems={"center"}
               >
-                <a
-                  href={`${
-                    isNonEmpty
-                      ? data.linkedin
-                      : "https://www.linkedin.com/in/xxx-xxx"
-                  }`}
-                  target="_blank"
-                  rel="noreferrer"
+                <LinkedInIcon fontSize="small" sx={{ fontSize: ".7rem" }} />
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{
+                    textAlign: "center",
+                    fontSize: ".7rem",
+                  }}
                 >
-                  {isNonEmpty ? (
+                  <a href={`${data.linkedin}`} target="_blank" rel="noreferrer">
                     <>{data.linkedin}</>
-                  ) : (
-                    "https://www.linkedin.com/in/xxx-xxx"
-                  )}
-                </a>
-              </Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              gap={1}
-              justifyContent="center"
-              alignItems={"center"}
-            >
-              <GitHubIcon fontSize="small" sx={{ fontSize: ".7rem" }} />
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  textAlign: "center",
-                  fontSize: ".7rem",
-                }}
+                  </a>
+                </Typography>
+              </Stack>
+            )}
+            {data.github && (
+              <Stack
+                direction="row"
+                gap={1}
+                justifyContent="center"
+                alignItems={"center"}
               >
-                <a
-                  href={`${
-                    isNonEmpty ? data.github : "https://www.github.com/xxx-xxx"
-                  }`}
-                  target="_blank"
-                  rel="noreferrer"
+                <GitHubIcon fontSize="small" sx={{ fontSize: ".7rem" }} />
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{
+                    textAlign: "center",
+                    fontSize: ".7rem",
+                  }}
                 >
-                  {isNonEmpty ? (
+                  <a href={`${data.github}`} target="_blank" rel="noreferrer">
                     <>{data.github}</>
-                  ) : (
-                    "https://www.github.com/xxx-xxx"
-                  )}
-                </a>
-              </Typography>
-            </Stack>
+                  </a>
+                </Typography>
+              </Stack>
+            )}
+            {data.personalWebSite && (
+              <Stack
+                direction="row"
+                gap={1}
+                justifyContent="center"
+                alignItems={"center"}
+              >
+                <LanguageIcon fontSize="small" sx={{ fontSize: ".7rem" }} />
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{
+                    textAlign: "center",
+                    fontSize: ".7rem",
+                  }}
+                >
+                  <a
+                    href={`${data.personalWebSite}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <>{data.personalWebSite}</>
+                  </a>
+                </Typography>
+              </Stack>
+            )}
           </Stack>
         </Box>
       </Grid>
@@ -189,19 +182,14 @@ const Template1 = () => {
             </Typography>
           </Divider>
           <Typography sx={{ fontSize: ".8rem" }} component="div">
-            {isNonEmpty ? (
-              <div
-                style={{ wordWrap: "break-word" }}
-                dangerouslySetInnerHTML={{
-                  __html: data.summary ? he.decode(data.summary?.[0].profileSummary) : "",
-                }}
-              ></div>
-            ) : (
-              `Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio odit
-            impedit pariatur officia eos eius consequuntur cupiditate velit
-            sint, soluta quos veniam praesentium, ullam ex veritatis eveniet!
-            Sint, sequi quod.`
-            )}
+            <div
+              style={{ wordWrap: "break-word" }}
+              dangerouslySetInnerHTML={{
+                __html: data.summary
+                  ? he.decode(data.summary?.[0].profileSummary)
+                  : "",
+              }}
+            ></div>
           </Typography>
         </Stack>
       </Grid>
@@ -216,7 +204,7 @@ const Template1 = () => {
             <Stack direction={"row"} gap={4} sx={{ mb: 1 }}>
               <Box
                 sx={{
-                  width: "200px",
+                  minWidth: "200px",
                   justifyContent: "flex-start",
                   display: "flex",
                   alignItems: "center",
@@ -238,20 +226,16 @@ const Template1 = () => {
                     fontSize: ".8rem",
                   }}
                 >
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
+                  {data.technicalSkills.map((item: any) => {
+                    return <li>{item.label}</li>;
+                  })}
                 </ul>
               </Box>
             </Stack>
             <Stack direction={"row"} gap={4} sx={{ mb: 1 }}>
               <Box
                 sx={{
-                  width: "200px",
+                  minWidth: "200px",
                   justifyContent: "flex-start",
                   display: "flex",
                   alignItems: "center",
@@ -273,20 +257,16 @@ const Template1 = () => {
                     fontSize: ".8rem",
                   }}
                 >
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
+                  {data.softSkills.map((item: any) => {
+                    return <li>{item.label}</li>;
+                  })}
                 </ul>
               </Box>
             </Stack>
             <Stack direction={"row"} gap={4}>
               <Box
                 sx={{
-                  width: "200px",
+                  minWidth: "200px",
                   justifyContent: "flex-start",
                   display: "flex",
                   alignItems: "center",
@@ -306,13 +286,9 @@ const Template1 = () => {
                     fontSize: ".8rem",
                   }}
                 >
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
-                  <li>Lorem ipsum dolor sit,</li>
+                  {data.tools.map((item: any) => {
+                    return <li>{item.label}</li>;
+                  })}
                 </ul>
               </Box>
             </Stack>
@@ -326,111 +302,46 @@ const Template1 = () => {
               Professional Experience
             </Typography>
           </Divider>
-          <Box sx={{ mt: 2 }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography sx={{ fontWeight: "bold" }}>
-                Software Development Engineer III
-              </Typography>
-              <Stack direction="column">
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  Bengalore
+          {data.experience.map((item: any, index: number) => {
+            return (
+              <Box sx={{ mt: 2 }} key={index}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.jobTitle}
+                  </Typography>
+                  <Stack direction="column">
+                    <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
+                      {item.location}
+                    </Typography>
+                    <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
+                      {item.startMonth}, {item.startYear} ‑{" "}
+                      {`${
+                        (item.isCurrentJob ? "Present" : item.endMonth,
+                        item.endYear)
+                      }`}
+                    </Typography>
+                  </Stack>
+                </Stack>
+                <Typography
+                  sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
+                  variant="body1"
+                  component="div"
+                >
+                  {item.company}
                 </Typography>
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  April 2023 ‑ Present
-                </Typography>
-              </Stack>
-            </Stack>
-            <Typography
-              sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
-              variant="body1"
-              component="div"
-            >
-              Company Name
-            </Typography>
-            <div style={{ fontSize: ".8rem" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio odit
-              impedit pariatur officia eos eius consequuntur cupiditate velit
-              sint, soluta quos veniam praesentium, ullam ex veritatis eveniet!
-              Sint, sequi quod. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Odio odit impedit pariatur officia eos eius
-              consequuntur cupiditate velit sint, soluta quos veniam
-              praesentium, ullam ex veritatis eveniet! Sint, sequi quod.
-            </div>
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography sx={{ fontWeight: "bold" }}>
-                Software Development Engineer II
-              </Typography>
-              <Stack direction="column">
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  Bengalore
-                </Typography>
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  April 2023 ‑ Present
-                </Typography>
-              </Stack>
-            </Stack>
-            <Typography
-              sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
-              variant="body1"
-              component="div"
-            >
-              Company Name
-            </Typography>
-            <div style={{ fontSize: ".8rem" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio odit
-              impedit pariatur officia eos eius consequuntur cupiditate velit
-              sint, soluta quos veniam praesentium, ullam ex veritatis eveniet!
-              Sint, sequi quod. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Odio odit impedit pariatur officia eos eius
-              consequuntur cupiditate velit sint, soluta quos veniam
-              praesentium, ullam ex veritatis eveniet! Sint, sequi quod.
-            </div>
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography sx={{ fontWeight: "bold" }}>
-                Software Development Engineer
-              </Typography>
-              <Stack direction="column">
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  Bengalore
-                </Typography>
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  April 2023 ‑ Present
-                </Typography>
-              </Stack>
-            </Stack>
-            <Typography
-              sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
-              variant="body1"
-              component="div"
-            >
-              Company Name
-            </Typography>
-            <div style={{ fontSize: ".8rem" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio odit
-              impedit pariatur officia eos eius consequuntur cupiditate velit
-              sint, soluta quos veniam praesentium, ullam ex veritatis eveniet!
-              Sint, sequi quod. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Odio odit impedit pariatur officia eos eius
-              consequuntur cupiditate velit sint, soluta quos veniam
-              praesentium, ullam ex veritatis eveniet! Sint, sequi quod.
-            </div>
-          </Box>
+                <div
+                  style={{ fontSize: ".8rem", wordWrap: "break-word" }}
+                  dangerouslySetInnerHTML={{
+                    __html: item.description ? he.decode(item.description) : "",
+                  }}
+                ></div>
+              </Box>
+            );
+          })}
         </Stack>
       </Grid>
       <Grid item xs={12}>
@@ -440,32 +351,33 @@ const Template1 = () => {
               Recent Projects
             </Typography>
           </Divider>
-          <Box sx={{ mt: 1 }}>
-            <Typography sx={{ fontWeight: "bold", mt: 2 }}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </Typography>
-            <Typography
-              sx={{
-                my: 0.5,
-                fontSize: ".8rem",
-                color: "#747474",
-                mb: 1,
-              }}
-              variant="body1"
-              component="div"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </Typography>
-            <div style={{ fontSize: ".8rem" }}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio odit
-              impedit pariatur officia eos eius consequuntur cupiditate velit
-              sint, soluta quos veniam praesentium, ullam ex veritatis eveniet!
-              Sint, sequi quod. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Odio odit impedit pariatur officia eos eius
-              consequuntur cupiditate velit sint, soluta quos veniam
-              praesentium, ullam ex veritatis eveniet! Sint, sequi quod.
-            </div>
-          </Box>
+          {data.projects.map((item: any, index: number) => {
+            return (
+              <Box sx={{ mt: 1 }} key={index}>
+                <Typography sx={{ fontWeight: "bold", mt: 2 }}>
+                  {item.title}
+                </Typography>
+                <Typography
+                  sx={{
+                    my: 0.5,
+                    fontSize: ".8rem",
+                    color: "#747474",
+                    mb: 1,
+                  }}
+                  variant="body1"
+                  component="div"
+                >
+                  {item.subTitle}
+                </Typography>
+                <div
+                  style={{ fontSize: ".8rem", wordWrap: "break-word" }}
+                  dangerouslySetInnerHTML={{
+                    __html: item.description ? he.decode(item.description) : "",
+                  }}
+                ></div>
+              </Box>
+            );
+          })}
         </Stack>
       </Grid>
       <Grid item xs={12}>
@@ -475,23 +387,26 @@ const Template1 = () => {
               Certifications
             </Typography>
           </Divider>
-          <Box sx={{ mt: 1 }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography sx={{ fontWeight: "bold" }}>AZ-900</Typography>
-            </Stack>
-            <Typography
-              sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
-              variant="body1"
-              component="div"
-            >
-              Microsoft Azure Fundamentals
-            </Typography>
-            <div style={{ fontSize: ".8rem" }}>2022 - Present</div>
-          </Box>
+          {data.certifications.map((item: any, index: number) => {
+            return (
+              <Box sx={{ mt: 1 }} key={index}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.certificationName}
+                  </Typography>
+                </Stack>
+
+                <div style={{ fontSize: ".8rem" }}>
+                  {item.issueMonth}, {item.issueYear} - {item.expirationMonth},{" "}
+                  {item.expirationYear}
+                </div>
+              </Box>
+            );
+          })}
         </Stack>
       </Grid>
       <Grid item xs={12}>
@@ -501,35 +416,36 @@ const Template1 = () => {
               Education
             </Typography>
           </Divider>
-          <Box sx={{ mt: 1 }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography sx={{ fontWeight: "bold" }}>
-                Institution Name
-              </Typography>
-              <Stack direction="column">
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  Bengalore
+          {data.education.map((item: any, index: number) => {
+            return (
+              <Box sx={{ mt: 1 }} key={index}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.institutionName}
+                  </Typography>
+                  <Stack direction="column">
+                    <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
+                      {item.location}
+                    </Typography>
+                    <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
+                      {item.completionMonth} {item.completionYear}
+                    </Typography>
+                  </Stack>
+                </Stack>
+                <Typography
+                  sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
+                  variant="body1"
+                  component="div"
+                >
+                  {item.degree}
                 </Typography>
-                <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
-                  April 2009 ‑ May 2012
-                </Typography>
-              </Stack>
-            </Stack>
-            <Typography
-              sx={{ my: 0.5, fontSize: ".8rem", color: "#747474", mb: 1 }}
-              variant="body1"
-              component="div"
-            >
-              B.Tech
-            </Typography>
-            <div style={{ fontSize: ".8rem" }}>
-              CGPA: <em>9.02%</em>
-            </div>
-          </Box>
+              </Box>
+            );
+          })}
         </Stack>
       </Grid>
     </Grid>

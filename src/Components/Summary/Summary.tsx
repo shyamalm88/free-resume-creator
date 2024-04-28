@@ -3,6 +3,7 @@ import { Box, Grid, InputLabel, Stack, Typography } from "@mui/material";
 import TipTapEditor from "../Common/Tiptap/TipTap";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
+import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -52,7 +53,7 @@ const Summary = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <Box sx={{ m: 2, mb: 4 }}>
             <Typography variant="h3">
               At the forefront of my resume, I present a succinct showcase of my
@@ -95,6 +96,7 @@ const Summary = () => {
             );
           })}
         </Grid>
+        <ResumeTemplateChoose/>
       </Grid>
     </>
   );

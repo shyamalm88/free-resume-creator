@@ -21,6 +21,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import { Month } from "../../data/Month";
 import { Degree } from "../../data/degree";
+import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
 for (let i = nowYear; i > nowYear - 60; i--) {
@@ -71,7 +72,7 @@ const Education = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <Box sx={{ m: 2, mb: 4 }}>
             <Typography variant="h3">Tell us about your Education</Typography>
 
@@ -266,6 +267,7 @@ const Education = () => {
             );
           })}
         </Grid>
+        <ResumeTemplateChoose/>
       </Grid>
 
       <Box sx={{ px: 2 }}>

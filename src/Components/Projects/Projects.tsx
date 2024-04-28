@@ -15,8 +15,9 @@ import AddIcon from "@mui/icons-material/Add";
 import TipTapEditor from "../Common/Tiptap/TipTap";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
+import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -27,6 +28,7 @@ for (let i = nowYear; i > nowYear - 60; i--) {
 type FormValues = {
   projects: {
     title: string | null;
+    subTitle: string | null;
     description: string;
   }[];
 };
@@ -50,6 +52,7 @@ const Projects = () => {
       remove(0);
       append({
         title: null,
+        subTitle: null,
         description: "",
       });
     }
@@ -70,7 +73,7 @@ const Projects = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={8}>
           <Box sx={{ m: 2, mb: 4 }}>
             <Typography variant="h3">
               Share with us some of the projects you've found most challenging
@@ -111,22 +114,88 @@ const Projects = () => {
                         {...register(`projects.${index}.title` as const, {
                           pattern: {
                             value: /^[a-z\d\-_\s]+$/i,
-                            message: "Only Alphanumeric characters and spaces are allowed."
+                            message:
+                              "Only Alphanumeric characters and spaces are allowed.",
                           },
                           minLength: {
                             value: 2,
-                            message: "Please Provide Project Name"
+                            message: "Please Provide Project Name",
                           },
                         })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              {dirtyFields?.projects?.[index]?.title ? !errors?.projects?.[index]?.title ? getValues(`projects.${index}.title`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                              {dirtyFields?.projects?.[index]?.title ? (
+                                !errors?.projects?.[index]?.title ? (
+                                  getValues(`projects.${index}.title`) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
                             </InputAdornment>
                           ),
                         }}
                       />
-                      <FormValidationError errorText={errors?.projects?.[index]?.title?.message}/>
+                      <FormValidationError
+                        errorText={errors?.projects?.[index]?.title?.message}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    spacing={{ xs: 2, md: 3 }}
+                    columns={{ xs: 4, sm: 8, md: 12 }}
+                  >
+                    <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
+                      <InputLabel className="formControl-label">
+                        Project Subtitle
+                      </InputLabel>
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        placeholder="e.g. Project XYZ"
+                        fullWidth
+                        size="small"
+                        {...register(`projects.${index}.subTitle` as const, {
+                          pattern: {
+                            value: /^[a-z\d\-_\s]+$/i,
+                            message:
+                              "Only Alphanumeric characters and spaces are allowed.",
+                          },
+                          minLength: {
+                            value: 2,
+                            message: "Please Provide Project Name",
+                          },
+                        })}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              {dirtyFields?.projects?.[index]?.subTitle ? (
+                                !errors?.projects?.[index]?.subTitle ? (
+                                  getValues(`projects.${index}.subTitle`) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      <FormValidationError
+                        errorText={errors?.projects?.[index]?.subTitle?.message}
+                      />
                     </Grid>
                   </Grid>
                 </Box>
@@ -154,6 +223,7 @@ const Projects = () => {
             );
           })}
         </Grid>
+        <ResumeTemplateChoose />
       </Grid>
 
       <Box sx={{ px: 2 }}>
@@ -166,6 +236,7 @@ const Projects = () => {
           onClick={() =>
             append({
               title: null,
+              subTitle: null,
               description: "",
             })
           }

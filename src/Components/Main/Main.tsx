@@ -3,29 +3,30 @@ import React from "react";
 import ActionButtons from "../ActionButtons/ActionButtons";
 import { SwitchResumeComponent } from "../SwitchResumeComponentes/SwitchResumeComponent";
 import useResumeStageContextProvider from "../../hooks/useResumeStageContextProvider";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
+import { ResumeDataContextProvider } from "../../Provider/ResumeDataContextProvider";
 const defaultValues = {
-  firstName: "",
-  lastName: "",
-  middleName: "",
-  profession: "",
-  city: "",
-  country: "",
-  pinCode: "",
-  mobileNo: "",
-  email: "",
-  linkedin: "",
-  github: "",
-  personalWebSite: "",
-  softSkills: "",
-  technicalSkills: "",
+  firstName: null,
+  lastName: null,
+  middleName: null,
+  profession: null,
+  city: null,
+  country: null,
+  pinCode: null,
+  mobileNo: null,
+  email: null,
+  linkedin: null,
+  github: null,
+  personalWebSite: null,
+  softSkills: null,
+  technicalSkills: null,
   experience: [
     {
-      jobTitle: "",
-      company: "",
-      startMonth: "",
+      jobTitle: null,
+      company: null,
+      startMonth: null,
       startYear: null,
-      endMonth: "",
+      endMonth: null,
       endYear: null,
     },
   ],
@@ -37,10 +38,16 @@ const Main = () => {
     console.log(data);
     localStorage.setItem("resumeData", JSON.stringify(data));
   };
+
+  
+  const onChange = () => {
+      localStorage.setItem("resumeData", JSON.stringify(methods.getValues()));
+  };
   return (
     <FormProvider {...methods}>
+      <ResumeDataContextProvider>
       <Container>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} onChange={onChange}>
           <Box
             component="main"
             sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
@@ -55,6 +62,7 @@ const Main = () => {
           <input type="submit" id="submit" style={{ visibility: "visible" }} />
         </form>
       </Container>
+      </ResumeDataContextProvider>
     </FormProvider>
   );
 };
