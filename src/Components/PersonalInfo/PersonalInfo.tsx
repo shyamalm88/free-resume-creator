@@ -11,12 +11,11 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import PersonalLinks from "../PersonalLinks/PersonalLinks";
 import { useFormContext } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import React from "react";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
-
 
 function PersonalInfo() {
   const {
@@ -27,9 +26,6 @@ function PersonalInfo() {
   const [openTemplateChooseModal, setOpenTemplateChooseModal] =
     React.useState(false);
 
-    console.log(errors);
-
-      
   return (
     <Grid
       container
@@ -62,7 +58,9 @@ function PersonalInfo() {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             <Grid item xs={12} md={4} lg={4} sx={{ p: 1 }}>
-              <InputLabel className="formControl-label">First Name *</InputLabel>
+              <InputLabel className="formControl-label">
+                First Name *
+              </InputLabel>
               <TextField
                 id="outlined-basic"
                 variant="outlined"
@@ -72,31 +70,40 @@ function PersonalInfo() {
                 {...register("firstName", {
                   required: {
                     value: true,
-                    message: "This field cannot be empty."
+                    message: "This field cannot be empty.",
                   },
                   pattern: {
                     value: /^[a-zA-Z]*$/,
-                    message: "Only Alphabets are allowed."
+                    message: "Only Alphabets are allowed.",
                   },
                   minLength: {
                     value: 4,
-                    message: "Minimum 4 characters are required."
+                    message: "Minimum 4 characters are required.",
                   },
                   maxLength: {
                     value: 16,
-                    message: "Maximum 16 characters are required."
-                  }
-                  
+                    message: "Maximum 16 characters are required.",
+                  },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.firstName ? !errors.firstName ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.firstName ? (
+                        !errors.firstName ? (
+                          <TaskAltIcon color="success" />
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.firstName?.message}/>
+              <FormValidationError
+                errorText={(errors as any)?.firstName?.message}
+              />
             </Grid>
             <Grid item xs={12} md={4} lg={4} sx={{ p: 1 }}>
               <InputLabel className="formControl-label">Middle Name</InputLabel>
@@ -109,19 +116,32 @@ function PersonalInfo() {
                 {...register(`middleName` as const, {
                   pattern: {
                     value: /^[a-zA-Z]*$/,
-                    message: "Only Alphabets are allowed."
+                    message: "Only Alphabets are allowed.",
                   },
-                  
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                     {dirtyFields.middleName ? !errors.middleName ?  getValues(`middleName`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.middleName ? (
+                        !errors.middleName ? (
+                          getValues(`middleName`) ? (
+                            <TaskAltIcon color="success" />
+                          ) : (
+                            <></>
+                          )
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.middleName?.message}/>
+              <FormValidationError
+                errorText={(errors as any)?.middleName?.message}
+              />
             </Grid>
             <Grid item xs={12} md={4} lg={4} sx={{ p: 1 }}>
               <InputLabel className="formControl-label">Last Name *</InputLabel>
@@ -134,30 +154,40 @@ function PersonalInfo() {
                 {...register(`lastName` as const, {
                   required: {
                     value: true,
-                    message: "This field cannot be empty."
+                    message: "This field cannot be empty.",
                   },
                   pattern: {
                     value: /^[a-zA-Z]*$/,
-                    message: "Only Alphabets are allowed."
+                    message: "Only Alphabets are allowed.",
                   },
                   minLength: {
                     value: 3,
-                    message: "Minimum 3 characters are required."
+                    message: "Minimum 3 characters are required.",
                   },
                   maxLength: {
                     value: 16,
-                    message: "Maximum 16 characters are required."
-                  }
+                    message: "Maximum 16 characters are required.",
+                  },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.lastName ? !errors.lastName ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.lastName ? (
+                        !errors.lastName ? (
+                          <TaskAltIcon color="success" />
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.lastName?.message}/>
+              <FormValidationError
+                errorText={(errors as any)?.lastName?.message}
+              />
             </Grid>
             <Grid item xs={12} sx={{ p: 1 }}>
               <InputLabel className="formControl-label">Profession</InputLabel>
@@ -170,30 +200,39 @@ function PersonalInfo() {
                 {...register(`profession` as const, {
                   required: {
                     value: true,
-                    message: "This field cannot be empty."
+                    message: "This field cannot be empty.",
                   },
                   pattern: {
                     value: /^[a-z\d\-_\s]+$/i,
-                    message: "Only Alphanumeric characters and spaces are allowed."
+                    message:
+                      "Only Alphanumeric characters and spaces are allowed.",
                   },
                   minLength: {
                     value: 4,
-                    message: "Minimum 4 characters are required."
+                    message: "Minimum 4 characters are required.",
                   },
-                  
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.profession ? !errors.profession ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.profession ? (
+                        !errors.profession ? (
+                          <TaskAltIcon color="success" />
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.profession?.message}/>
-              
+              <FormValidationError
+                errorText={(errors as any)?.profession?.message}
+              />
             </Grid>
-            <Grid item xs={12} md={4} lg={4} sx={{ p: 1 }}>
+            <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
               <InputLabel className="formControl-label">City</InputLabel>
               <TextField
                 id="outlined-basic"
@@ -204,20 +243,33 @@ function PersonalInfo() {
                 {...register(`city` as const, {
                   pattern: {
                     value: /^[a-z\d\-_\s]+$/i,
-                    message: "Only Alphanumeric characters and spaces are allowed."
+                    message:
+                      "Only Alphanumeric characters and spaces are allowed.",
                   },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.city ? !errors.city ? getValues(`city`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.city ? (
+                        !errors.city ? (
+                          getValues(`city`) ? (
+                            <TaskAltIcon color="success" />
+                          ) : (
+                            <></>
+                          )
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.city?.message}/>
+              <FormValidationError errorText={(errors as any)?.city?.message} />
             </Grid>
-            <Grid item xs={12} md={4} lg={4} sx={{ p: 1 }}>
+            <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
               <InputLabel className="formControl-label">Country</InputLabel>
               <TextField
                 id="outlined-basic"
@@ -228,46 +280,38 @@ function PersonalInfo() {
                 {...register(`country` as const, {
                   pattern: {
                     value: /^[a-z\d\-_\s]+$/i,
-                    message: "Only Alphanumeric characters and spaces are allowed."
+                    message:
+                      "Only Alphanumeric characters and spaces are allowed.",
                   },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.country ? !errors.country ? getValues(`country`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.country ? (
+                        !errors.country ? (
+                          getValues(`country`) ? (
+                            <TaskAltIcon color="success" />
+                          ) : (
+                            <></>
+                          )
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.country?.message}/>
-            </Grid>
-            <Grid item xs={12} md={4} lg={4} sx={{ p: 1 }}>
-              <InputLabel className="formControl-label">Pin Code</InputLabel>
-              <TextField
-                id="outlined-basic"
-                variant="outlined"
-                placeholder="e.g. 123456"
-                fullWidth
-                size="small"
-                {...register(`pinCode` as const, {
-                  pattern: {
-                    value: /^\d+$/,
-                    message: "Only Numbers are allowed"
-                  },
-                  
-                })}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      {dirtyFields.pinCode ? !errors.pinCode ? getValues(`pinCode`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
-                    </InputAdornment>
-                  ),
-                }}
+              <FormValidationError
+                errorText={(errors as any)?.country?.message}
               />
-              <FormValidationError errorText={(errors as any)?.pinCode?.message}/>
             </Grid>
             <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
-              <InputLabel className="formControl-label">Mobile No. *</InputLabel>
+              <InputLabel className="formControl-label">
+                Mobile No. *
+              </InputLabel>
               <TextField
                 id="outlined-basic"
                 variant="outlined"
@@ -275,28 +319,38 @@ function PersonalInfo() {
                 fullWidth
                 size="small"
                 {...register(`mobileNo` as const, {
-                  required:{
+                  required: {
                     value: true,
-                    message: "This field is required"
+                    message: "This field is required",
                   },
                   pattern: {
                     value: /^\d+$/,
-                    message: "Only Numbers are allowed"
+                    message: "Only Numbers are allowed",
                   },
                   maxLength: {
                     value: 10,
-                    message: "Mobile Number can contain only 10 digits"
-                  }
+                    message: "Mobile Number can contain only 10 digits",
+                  },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                     {dirtyFields.mobileNo ? !errors.mobileNo ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.mobileNo ? (
+                        !errors.mobileNo ? (
+                          <TaskAltIcon color="success" />
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.mobileNo?.message}/>
+              <FormValidationError
+                errorText={(errors as any)?.mobileNo?.message}
+              />
             </Grid>
             <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
               <InputLabel className="formControl-label">
@@ -311,28 +365,39 @@ function PersonalInfo() {
                 {...register(`email` as const, {
                   required: {
                     value: true,
-                    message: "This Field is required."
+                    message: "This Field is required.",
                   },
                   pattern: {
-                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: "Provide valid Email Address"
-                  }
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "Provide valid Email Address",
+                  },
                 })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      {dirtyFields.email ? !errors.email ? <TaskAltIcon color="success" /> : <ErrorOutlineIcon color="error" /> : <></>}
+                      {dirtyFields.email ? (
+                        !errors.email ? (
+                          <TaskAltIcon color="success" />
+                        ) : (
+                          <ErrorOutlineIcon color="error" />
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </InputAdornment>
                   ),
                 }}
               />
-              <FormValidationError errorText={(errors as any)?.email?.message}/>
+              <FormValidationError
+                errorText={(errors as any)?.email?.message}
+              />
             </Grid>
           </Grid>
         </Box>
         <PersonalLinks />
       </Grid>
-     <ResumeTemplateChoose/>
+      <ResumeTemplateChoose />
     </Grid>
   );
 }

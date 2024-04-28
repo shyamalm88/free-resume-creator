@@ -315,7 +315,7 @@ const Template2 = () => {
                   }}
                 >
                   {data.technicalSkills.map((item: any) => {
-                    return <li>{item.label}</li>;
+                    return <li key={item.id}>{item.label}</li>;
                   })}
                 </ul>
               </Box>
@@ -346,7 +346,7 @@ const Template2 = () => {
                   }}
                 >
                   {data.softSkills.map((item: any) => {
-                    return <li>{item.label}</li>;
+                    return <li key={item.id}>{item.label}</li>;
                   })}
                 </ul>
               </Box>
@@ -375,7 +375,7 @@ const Template2 = () => {
                   }}
                 >
                   {data.tools.map((item: any) => {
-                    return <li>{item.label}</li>;
+                    return <li key={item.id}>{item.label}</li>;
                   })}
                 </ul>
               </Box>

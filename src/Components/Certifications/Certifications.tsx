@@ -17,7 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import { Month } from "../../data/Month";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
@@ -114,19 +114,41 @@ const Certifications = () => {
                           {
                             pattern: {
                               value: /^[a-z\d\-_\s]+$/i,
-                              message: "Only Alphanumeric characters and spaces are allowed."
+                              message:
+                                "Only Alphanumeric characters and spaces are allowed.",
                             },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                               {dirtyFields?.certifications?.[index]?.certificationName ? !errors?.certifications?.[index]?.certificationName ? getValues(`certifications.${index}.certificationName`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                              {dirtyFields?.certifications?.[index]
+                                ?.certificationName ? (
+                                !errors?.certifications?.[index]
+                                  ?.certificationName ? (
+                                  getValues(
+                                    `certifications.${index}.certificationName`
+                                  ) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
                             </InputAdornment>
                           ),
                         }}
                       />
-                       <FormValidationError errorText={errors?.certifications?.[index]?.certificationName?.message}/>
+                      <FormValidationError
+                        errorText={
+                          errors?.certifications?.[index]?.certificationName
+                            ?.message
+                        }
+                      />
                     </Grid>
                   </Grid>
                 </Box>
@@ -143,17 +165,18 @@ const Certifications = () => {
                         </InputLabel>
                         <Select
                           fullWidth
+                          native
                           placeholder="Month"
                           {...register(`certifications.${index}.issueMonth`)}
                         >
                           {Month.map((x) => {
                             return (
-                              <MenuItem
+                              <option
                                 value={x.abbreviation}
                                 key={x.abbreviation}
                               >
                                 {x.name}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -164,14 +187,15 @@ const Certifications = () => {
                         </InputLabel>
                         <Select
                           fullWidth
+                          native
                           placeholder="Year"
                           {...register(`certifications.${index}.issueYear`)}
                         >
                           {Year.map((x) => {
                             return (
-                              <MenuItem value={x} key={x}>
+                              <option value={x} key={x}>
                                 {x}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -182,6 +206,7 @@ const Certifications = () => {
                         </InputLabel>
                         <Select
                           fullWidth
+                          native
                           placeholder="Month"
                           {...register(
                             `certifications.${index}.expirationMonth`
@@ -189,12 +214,12 @@ const Certifications = () => {
                         >
                           {Month.map((x) => {
                             return (
-                              <MenuItem
+                              <option
                                 value={x.abbreviation}
                                 key={x.abbreviation}
                               >
                                 {x.name}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -205,6 +230,7 @@ const Certifications = () => {
                         </InputLabel>
                         <Select
                           fullWidth
+                          native
                           placeholder="Month"
                           {...register(
                             `certifications.${index}.expirationYear`
@@ -212,9 +238,9 @@ const Certifications = () => {
                         >
                           {Year.map((x) => {
                             return (
-                              <MenuItem value={x} key={x}>
+                              <option value={x} key={x}>
                                 {x}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -230,7 +256,7 @@ const Certifications = () => {
             );
           })}
         </Grid>
-        <ResumeTemplateChoose/>
+        <ResumeTemplateChoose />
       </Grid>
 
       <Box sx={{ px: 2 }}>

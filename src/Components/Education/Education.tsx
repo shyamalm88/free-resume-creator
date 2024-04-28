@@ -17,7 +17,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import { Month } from "../../data/Month";
 import { Degree } from "../../data/degree";
@@ -114,19 +114,39 @@ const Education = () => {
                           {
                             pattern: {
                               value: /^[a-z\d\-_\s]+$/i,
-                              message: "Only Alphanumeric characters and spaces are allowed."
+                              message:
+                                "Only Alphanumeric characters and spaces are allowed.",
                             },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              {dirtyFields?.education?.[index]?.institutionName ? !errors?.education?.[index]?.institutionName ? getValues(`education.${index}.institutionName`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                              {dirtyFields?.education?.[index]
+                                ?.institutionName ? (
+                                !errors?.education?.[index]?.institutionName ? (
+                                  getValues(
+                                    `education.${index}.institutionName`
+                                  ) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
                             </InputAdornment>
                           ),
                         }}
                       />
-                      <FormValidationError errorText={errors?.education?.[index]?.institutionName?.message}/>
+                      <FormValidationError
+                        errorText={
+                          errors?.education?.[index]?.institutionName?.message
+                        }
+                      />
                     </Grid>
                     <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
                       <InputLabel className="formControl-label">
@@ -143,19 +163,38 @@ const Education = () => {
                           {
                             pattern: {
                               value: /^[a-z\d\-_\s]+$/i,
-                              message: "Only Alphanumeric characters and spaces are allowed."
+                              message:
+                                "Only Alphanumeric characters and spaces are allowed.",
                             },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              {dirtyFields?.education?.[index]?.fieldOfStudy ? !errors?.education?.[index]?.fieldOfStudy ? getValues(`education.${index}.fieldOfStudy`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                              {dirtyFields?.education?.[index]?.fieldOfStudy ? (
+                                !errors?.education?.[index]?.fieldOfStudy ? (
+                                  getValues(
+                                    `education.${index}.fieldOfStudy`
+                                  ) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
                             </InputAdornment>
                           ),
                         }}
                       />
-                      <FormValidationError errorText={errors?.education?.[index]?.fieldOfStudy?.message}/>
+                      <FormValidationError
+                        errorText={
+                          errors?.education?.[index]?.fieldOfStudy?.message
+                        }
+                      />
                     </Grid>
 
                     <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
@@ -168,21 +207,37 @@ const Education = () => {
                         placeholder="e.g. Bengaluru"
                         fullWidth
                         size="small"
-                        {...register(`education.${index}.location`as const, {
+                        {...register(`education.${index}.location` as const, {
                           pattern: {
                             value: /^[a-zA-Z]*$/,
-                            message: "Only Alphabets are allowed."
+                            message: "Only Alphabets are allowed.",
                           },
                         })}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                               {dirtyFields?.education?.[index]?.location ? !errors?.education?.[index]?.location ? getValues(`education.${index}.location`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                              {dirtyFields?.education?.[index]?.location ? (
+                                !errors?.education?.[index]?.location ? (
+                                  getValues(`education.${index}.location`) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
                             </InputAdornment>
                           ),
                         }}
                       />
-                      <FormValidationError errorText={errors?.education?.[index]?.location?.message}/>
+                      <FormValidationError
+                        errorText={
+                          errors?.education?.[index]?.location?.message
+                        }
+                      />
                     </Grid>
                   </Grid>
                 </Box>
@@ -199,14 +254,15 @@ const Education = () => {
                         </InputLabel>
                         <Select
                           fullWidth
+                          native
                           placeholder="Month"
                           {...register(`education.${index}.degree`)}
                         >
                           {Degree.map((x) => {
                             return (
-                              <MenuItem value={x.name} key={x.name}>
+                              <option value={x.name} key={x.name}>
                                 {x.name}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -223,17 +279,18 @@ const Education = () => {
                         </InputLabel>
                         <Select
                           fullWidth
+                          native
                           placeholder="Month"
                           {...register(`education.${index}.completionMonth`)}
                         >
                           {Month.map((x) => {
                             return (
-                              <MenuItem
+                              <option
                                 value={x.abbreviation}
                                 key={x.abbreviation}
                               >
                                 {x.name}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -243,15 +300,16 @@ const Education = () => {
                           &nbsp;
                         </InputLabel>
                         <Select
+                          native
                           fullWidth
                           placeholder="Month"
                           {...register(`education.${index}.completionYear`)}
                         >
                           {Year.map((x) => {
                             return (
-                              <MenuItem value={x} key={x}>
+                              <option value={x} key={x}>
                                 {x}
-                              </MenuItem>
+                              </option>
                             );
                           })}
                         </Select>
@@ -267,7 +325,7 @@ const Education = () => {
             );
           })}
         </Grid>
-        <ResumeTemplateChoose/>
+        <ResumeTemplateChoose />
       </Grid>
 
       <Box sx={{ px: 2 }}>

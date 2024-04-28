@@ -11,8 +11,9 @@ import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvid
 const Template1 = () => {
   const context = useResumeDataContextProvider();
   const [data, setData] = React.useState(context.resumeData);
-  console.log(data);
-
+  React.useEffect(() => {
+    setData(context.resumeData);
+  }, [context]);
   return (
     <Grid container sx={{ p: 2 }}>
       <Grid item xs={12}>
@@ -227,7 +228,7 @@ const Template1 = () => {
                   }}
                 >
                   {data.technicalSkills.map((item: any) => {
-                    return <li>{item.label}</li>;
+                    return <li key={item.id}>{item.label}</li>;
                   })}
                 </ul>
               </Box>
@@ -258,7 +259,7 @@ const Template1 = () => {
                   }}
                 >
                   {data.softSkills.map((item: any) => {
-                    return <li>{item.label}</li>;
+                    return <li key={item.id}>{item.label}</li>;
                   })}
                 </ul>
               </Box>
@@ -287,7 +288,7 @@ const Template1 = () => {
                   }}
                 >
                   {data.tools.map((item: any) => {
-                    return <li>{item.label}</li>;
+                    return <li key={item.id}>{item.label}</li>;
                   })}
                 </ul>
               </Box>
@@ -320,8 +321,9 @@ const Template1 = () => {
                     <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
                       {item.startMonth}, {item.startYear} ‑{" "}
                       {`${
-                        (item.isCurrentJob ? "Present" : item.endMonth,
-                        item.endYear)
+                        item.isCurrentJob
+                          ? "Present"
+                          : `${item.endMonth}, ${item.endYear}`
                       }`}
                     </Typography>
                   </Stack>

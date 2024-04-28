@@ -1,6 +1,6 @@
 export const templateSampleData = {
   firstName: "John",
-  middleName: "Samuel",
+  middleName: "",
   lastName: "Doe",
   profession: "Software Developer",
   city: "Bengaluru",
