@@ -89,9 +89,10 @@ const ResumeTemplateChoose = () => {
                       >
                         <div
                           style={{
-                            transform: "scale(0.294)",
+                            transform: "scale(0.494)",
                             position: "relative",
-                            top: "-110px",
+                            top: "-70px",
+                            width: "190%",
                           }}
                         >
                           <SpecificComponent />
