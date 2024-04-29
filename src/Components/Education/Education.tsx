@@ -22,6 +22,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Month } from "../../data/Month";
 import { Degree } from "../../data/degree";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
+import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
 for (let i = nowYear; i > nowYear - 60; i--) {
@@ -51,6 +52,8 @@ const Education = () => {
     control,
   });
 
+  const { resumeData, setResumeData } = useResumeDataContextProvider();
+
   React.useEffect(() => {
     console.log(fields);
     if (fields.length === 0) {
@@ -65,6 +68,34 @@ const Education = () => {
       });
     }
   }, [fields]);
+
+  const appendNew = () => {
+    append({
+      institutionName: "",
+      fieldOfStudy: "",
+      degree: "",
+      completionMonth: "",
+      completionYear: null,
+      location: "",
+    });
+    setResumeData((prevData: any) => {
+      return {
+        ...prevData,
+        education: [
+          ...prevData.education,
+          {
+            institutionName: "",
+            fieldOfStudy: "",
+            degree: "",
+            completionMonth: "",
+            completionYear: null,
+            location: "",
+          },
+        ],
+      };
+    });
+  };
+
   return (
     <>
       <Grid

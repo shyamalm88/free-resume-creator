@@ -18,6 +18,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
+import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -46,6 +47,8 @@ const Projects = () => {
     control,
   });
 
+  const { resumeData, setResumeData } = useResumeDataContextProvider();
+
   React.useEffect(() => {
     console.log(fields);
     if (fields.length === 0) {
@@ -59,10 +62,36 @@ const Projects = () => {
   }, [fields]);
 
   const handleEditorChange = ({ editor }: any, control: any) => {
-    // setQuestion(encodedHtml);
-    setValue(control, editor.getHTML().replace(/\s/g, "&nbsp;"), {
-      shouldDirty: true,
-      shouldTouch: true,
+    const element = document.getElementsByName(control)[0];
+    const nativeInputValueSetter = (Object as any).getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value"
+    ).set;
+
+    let val: any = editor.getHTML().replace(/\s/g, "&nbsp;");
+    nativeInputValueSetter.call(element, val);
+    const event = new Event("change", { bubbles: true, cancelable: false });
+    element.dispatchEvent(event);
+  };
+
+  const appendNew = () => {
+    append({
+      title: null,
+      subTitle: null,
+      description: "",
+    });
+    setResumeData((prevData: any) => {
+      return {
+        ...prevData,
+        projects: [
+          ...prevData.projects,
+          {
+            title: "",
+            subTitle: "",
+            description: "",
+          },
+        ],
+      };
     });
   };
 
@@ -215,6 +244,10 @@ const Projects = () => {
                     dataContext={field.description}
                     shouldUpdate={false}
                   />
+                  <input
+                    type="text"
+                    {...register(`projects.${index}.description`)}
+                  />
                 </Box>
                 <Divider sx={{ my: 4, mx: 2 }}>
                   {`End of Project ${index + 1}`}
@@ -233,13 +266,7 @@ const Projects = () => {
           className="customActionBtn default"
           fullWidth
           startIcon={<AddIcon />}
-          onClick={() =>
-            append({
-              title: null,
-              subTitle: null,
-              description: "",
-            })
-          }
+          onClick={appendNew}
         >
           Add New
         </Button>

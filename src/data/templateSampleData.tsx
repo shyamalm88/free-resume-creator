@@ -17,24 +17,12 @@ export const templateSampleData = {
       company: "XYZ Company",
       startMonth: "Feb",
       startYear: 2020,
-      endMonth: null,
-      endYear: null,
-      isCurrentJob: true,
+      endMonth: "Mar",
+      endYear: 2022,
+      isCurrentJob: false,
       location: "Bengaluru",
       description:
         "<ul><li><p>Vestibulum&nbsp;nec&nbsp;nibh&nbsp;euismod,&nbsp;vestibulum&nbsp;nisi&nbsp;quis,&nbsp;ultricies&nbsp;magna.&nbsp;Mauris&nbsp;pulvinar&nbsp;tincidunt&nbsp;nibh&nbsp;suscipit&nbsp;fermentum.&nbsp;Praesent&nbsp;consectetur&nbsp;lacinia&nbsp;mollis.</p></li><li><p>Integer&nbsp;vulputate&nbsp;semper&nbsp;aliquet.&nbsp;Sed&nbsp;urna&nbsp;ligula,&nbsp;malesuada&nbsp;vel&nbsp;leo&nbsp;at,&nbsp;luctus&nbsp;faucibus&nbsp;magna.&nbsp;Integer&nbsp;porta&nbsp;eros&nbsp;vel&nbsp;nulla&nbsp;lacinia,&nbsp;id&nbsp;cursus&nbsp;orci&nbsp;dapibus.</p></li><li><p>Fusce&nbsp;ac&nbsp;euismod&nbsp;mauris.&nbsp;Integer&nbsp;ut&nbsp;ante&nbsp;quam.&nbsp;Maecenas&nbsp;vulputate,&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;interdum&nbsp;ornare,&nbsp;urna&nbsp;elit&nbsp;vehicula&nbsp;velit,&nbsp;a&nbsp;tristique&nbsp;quam&nbsp;sapien&nbsp;quis&nbsp;leo.</p></li><li><p>Duis&nbsp;ultricies,&nbsp;mi&nbsp;condimentum&nbsp;sagittis&nbsp;hendrerit,&nbsp;tortor&nbsp;metus&nbsp;pretium&nbsp;felis,&nbsp;ut&nbsp;aliquam&nbsp;lectus&nbsp;lorem&nbsp;ut&nbsp;quam.&nbsp;In&nbsp;volutpat&nbsp;egestas&nbsp;nisi&nbsp;tincidunt&nbsp;consectetur.&nbsp;In&nbsp;lobortis&nbsp;elit&nbsp;at&nbsp;arcu&nbsp;viverra.</p></li><li><p>Donec&nbsp;eget&nbsp;sapien&nbsp;placerat,&nbsp;hendrerit&nbsp;lacus&nbsp;a,&nbsp;euismod&nbsp;nulla.&nbsp;Pellentesque&nbsp;sollicitudin&nbsp;scelerisque&nbsp;enim</p></li></ul>",
-    },
-    {
-      jobTitle: "Senior Technical Consultant",
-      company: "ABC Company",
-      startMonth: "Feb",
-      startYear: 2023,
-      endMonth: "Feb",
-      endYear: 2020,
-      isCurrentJob: true,
-      location: "Bengaluru",
-      description:
-        "<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet,&nbsp;consectetur&nbsp;adipiscing&nbsp;elit.&nbsp;Curabitur&nbsp;sit&nbsp;amet&nbsp;sapien&nbsp;sit&nbsp;amet&nbsp;dolor&nbsp;volutpat&nbsp;egestas.&nbsp;Phasellus&nbsp;at&nbsp;congue&nbsp;augue.&nbsp;Nam&nbsp;arcu&nbsp;odio,&nbsp;accumsan&nbsp;quis&nbsp;urna&nbsp;sit&nbsp;amet,&nbsp;suscipit&nbsp;ullamcorper&nbsp;leo.&nbsp;Nam&nbsp;quis&nbsp;sem&nbsp;at&nbsp;ante&nbsp;commodo&nbsp;dignissim&nbsp;et&nbsp;in&nbsp;mi.&nbsp;Aliquam&nbsp;efficitur&nbsp;condimentum&nbsp;mauris&nbsp;non&nbsp;luctus.&nbsp;Nunc&nbsp;porta&nbsp;mollis&nbsp;massa,&nbsp;eget&nbsp;tincidunt&nbsp;mi&nbsp;varius&nbsp;eu.&nbsp;Phasellus&nbsp;nec&nbsp;ex&nbsp;nulla.&nbsp;Aenean&nbsp;at&nbsp;auctor&nbsp;ex.&nbsp;Ut&nbsp;vestibulum&nbsp;quis&nbsp;risus&nbsp;sit&nbsp;amet&nbsp;fermentum.&nbsp;Proin&nbsp;luctus&nbsp;mauris&nbsp;leo,&nbsp;at&nbsp;tempus&nbsp;eros&nbsp;pulvinar&nbsp;et.&nbsp;Donec&nbsp;ac&nbsp;felis&nbsp;consequat,&nbsp;tristique&nbsp;est&nbsp;vel,&nbsp;facilisis&nbsp;mauris.&nbsp;Maecenas&nbsp;eu&nbsp;egestas&nbsp;arcu.&nbsp;Phasellus&nbsp;facilisis&nbsp;orci&nbsp;eget&nbsp;tortor&nbsp;pellentesque&nbsp;vulputate.&nbsp;Fusce&nbsp;ullamcorper&nbsp;mauris&nbsp;lorem,&nbsp;nec&nbsp;convallis&nbsp;lectus&nbsp;semper&nbsp;in.</p>",
     },
   ],
   technicalSkills: [

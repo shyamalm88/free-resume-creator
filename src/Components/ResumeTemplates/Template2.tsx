@@ -246,10 +246,9 @@ const Template2 = () => {
                     </Typography>
                     <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
                       {item.startMonth}, {item.startYear} ‑{" "}
-                      {`${
-                        (item.isCurrentJob ? "Present" : item.endMonth,
-                        item.endYear)
-                      }`}
+                      {item.isCurrentJob
+                        ? "Present"
+                        : `${item.endMonth}, ${item.endYear}`}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -495,6 +494,9 @@ const Template2 = () => {
                 >
                   <Typography sx={{ fontWeight: "bold" }}>
                     {item.institutionName}
+                  </Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.fieldOfStudy}
                   </Typography>
                   <Stack direction="column">
                     <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>

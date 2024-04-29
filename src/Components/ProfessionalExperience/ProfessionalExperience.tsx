@@ -24,6 +24,7 @@ import { Month } from "../../data/Month";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
+import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
 
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
@@ -60,6 +61,8 @@ const ProfessionalExperience = () => {
     control,
   });
 
+  const { resumeData, setResumeData } = useResumeDataContextProvider();
+
   React.useEffect(() => {
     console.log(fields);
     if (fields.length === 0) {
@@ -78,12 +81,50 @@ const ProfessionalExperience = () => {
     }
   }, [fields]);
 
-  const handleEditorChange = ({ editor }: any, control: any) => {
-    // setQuestion(encodedHtml);
-    setValue(control, editor.getHTML().replace(/\s/g, "&nbsp;"), {
-      shouldDirty: true,
-      shouldTouch: true,
+  const appendNew = () => {
+    append({
+      jobTitle: null,
+      company: null,
+      startMonth: null,
+      startYear: null,
+      endMonth: null,
+      endYear: null,
+      isCurrentJob: false,
+      location: null,
+      description: "",
     });
+    setResumeData((prevData: any) => {
+      return {
+        ...prevData,
+        experience: [
+          ...prevData.experience,
+          {
+            jobTitle: "",
+            company: "",
+            startMonth: "",
+            startYear: "",
+            endMonth: "",
+            endYear: "",
+            isCurrentJob: false,
+            location: "",
+            description: "",
+          },
+        ],
+      };
+    });
+  };
+
+  const handleEditorChange = ({ editor }: any, control: any) => {
+    const element = document.getElementsByName(control)[0];
+    const nativeInputValueSetter = (Object as any).getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value"
+    ).set;
+
+    let val: any = editor.getHTML().replace(/\s/g, "&nbsp;");
+    nativeInputValueSetter.call(element, val);
+    const event = new Event("change", { bubbles: true, cancelable: false });
+    element.dispatchEvent(event);
   };
 
   return (
@@ -276,9 +317,6 @@ const ProfessionalExperience = () => {
                               },
                             }
                           )}
-                          // onChange={() =>
-                          //   trigger(`experience.${index}.startMonth`)
-                          // }
                         >
                           {Month.map((x) => {
                             return (
@@ -326,9 +364,6 @@ const ProfessionalExperience = () => {
                               },
                             }
                           )}
-                          // onChange={() =>
-                          //   trigger(`experience.${index}.startYear`)
-                          // }
                         >
                           {Year.map((x) => {
                             return (
@@ -358,16 +393,13 @@ const ProfessionalExperience = () => {
                           <Select
                             fullWidth
                             native
-                            // disabled={!getValues(`experience.${index}.isCurrentJob`)}
                             placeholder="Month"
                             {...register(
                               `experience.${index}.endMonth` as const,
                               {
                                 required: {
-                                  value: !Boolean(
-                                    getValues(
-                                      `experience.${index}.isCurrentJob`
-                                    )
+                                  value: !getValues(
+                                    `experience.${index}.isCurrentJob`
                                   ),
                                   message: "End Month is required.",
                                 },
@@ -401,12 +433,11 @@ const ProfessionalExperience = () => {
                           <Select
                             fullWidth
                             native
-                            // disabled={!getValues(`experience.${index}.isCurrentJob`)}
                             placeholder="Year"
                             {...register(`experience.${index}.endYear`, {
                               required: {
-                                value: !Boolean(
-                                  getValues(`experience.${index}.isCurrentJob`)
+                                value: !getValues(
+                                  `experience.${index}.isCurrentJob`
                                 ),
                                 message: "End Year is required.",
                               },
@@ -434,6 +465,7 @@ const ProfessionalExperience = () => {
                   <InputLabel className="formControl-label">
                     Description
                   </InputLabel>
+
                   <TipTapEditor
                     placeHolder={"Write Poll Question Here"}
                     handleChange={(e: any) =>
@@ -444,6 +476,10 @@ const ProfessionalExperience = () => {
                     editable={true}
                     dataContext={field.description}
                     shouldUpdate={false}
+                  />
+                  <input
+                    type="text"
+                    {...register(`experience.${index}.description`)}
                   />
                 </Box>
                 <Divider sx={{ my: 4, mx: 2 }}>
@@ -463,19 +499,7 @@ const ProfessionalExperience = () => {
           className="customActionBtn default"
           fullWidth
           startIcon={<AddIcon />}
-          onClick={() =>
-            append({
-              jobTitle: null,
-              company: null,
-              startMonth: null,
-              startYear: null,
-              endMonth: null,
-              endYear: null,
-              isCurrentJob: false,
-              location: null,
-              description: "",
-            })
-          }
+          onClick={appendNew}
         >
           Add New
         </Button>

@@ -21,6 +21,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import { Month } from "../../data/Month";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
+import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
 for (let i = nowYear; i > nowYear - 60; i--) {
@@ -49,6 +50,8 @@ const Certifications = () => {
     control,
   });
 
+  const { resumeData, setResumeData } = useResumeDataContextProvider();
+
   React.useEffect(() => {
     console.log(fields);
     if (fields.length === 0) {
@@ -62,6 +65,32 @@ const Certifications = () => {
       });
     }
   }, [fields]);
+
+  const appendNew = () => {
+    append({
+      certificationName: "",
+      issueMonth: "",
+      issueYear: null,
+      expirationMonth: "",
+      expirationYear: null,
+    });
+    setResumeData((prevData: any) => {
+      return {
+        ...prevData,
+        certifications: [
+          ...prevData.certifications,
+          {
+            certificationName: "",
+            issueMonth: "",
+            issueYear: null,
+            expirationMonth: "",
+            expirationYear: null,
+          },
+        ],
+      };
+    });
+  };
+
   return (
     <>
       <Grid
@@ -266,15 +295,7 @@ const Certifications = () => {
           className="customActionBtn default"
           fullWidth
           startIcon={<AddIcon />}
-          onClick={() =>
-            append({
-              certificationName: "",
-              issueMonth: "",
-              issueYear: null,
-              expirationMonth: "",
-              expirationYear: null,
-            })
-          }
+          onClick={appendNew}
         >
           Add New
         </Button>

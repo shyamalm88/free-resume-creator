@@ -68,6 +68,7 @@ const MainFormContainer = () => {
         [e.target.name]: methods.getValues(e.target.name),
       };
     });
+    console.log(resumeData);
   };
   return (
     <FormProvider {...methods}>
