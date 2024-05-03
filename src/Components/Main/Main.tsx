@@ -1,10 +1,13 @@
 import { ResumeDataContextProvider } from "../../Provider/ResumeDataContextProvider";
+import ResumeTemplateChooseContextProvider from "../../Provider/ResumeTemplateChooseContextProvider";
 import MainFormContainer from "../MainFormContainer/MainFormContainer";
 
 const Main = () => {
   return (
     <ResumeDataContextProvider>
-      <MainFormContainer />
+      <ResumeTemplateChooseContextProvider>
+        <MainFormContainer />
+      </ResumeTemplateChooseContextProvider>
     </ResumeDataContextProvider>
   );
 };

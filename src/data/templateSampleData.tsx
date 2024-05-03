@@ -62,6 +62,7 @@ export const templateSampleData = {
       completionMonth: "Mar",
       completionYear: 2019,
       location: "Kolkata",
+      CGPA: "6.23",
     },
   ],
   certifications: [

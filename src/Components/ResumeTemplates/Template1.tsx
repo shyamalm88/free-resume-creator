@@ -426,9 +426,10 @@ const Template1 = () => {
                 >
                   <Typography sx={{ fontWeight: "bold" }}>
                     {item.institutionName}
-                  </Typography>
-                  <Typography sx={{ fontWeight: "bold" }}>
+                    <br />
                     {item.fieldOfStudy}
+                    <br />
+                    {item.degree}
                   </Typography>
                   <Stack direction="column">
                     <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
@@ -444,8 +445,32 @@ const Template1 = () => {
                   variant="body1"
                   component="div"
                 >
-                  {item.degree}
+                  {item.CGPA && `CGPA: ${item.CGPA}`}
                 </Typography>
+              </Box>
+            );
+          })}
+        </Stack>
+      </Grid>
+      <Grid item xs={12}>
+        <Stack direction="column" sx={{ mt: 2 }}>
+          <Divider textAlign="left">
+            <Typography sx={{ fontWeight: "bold", fontSize: "1.3rem" }}>
+              Language Known
+            </Typography>
+          </Divider>
+          {data.language.map((item: any, index: number) => {
+            return (
+              <Box sx={{ mt: 1 }} key={index}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.languageKnown}
+                  </Typography>
+                </Stack>
               </Box>
             );
           })}

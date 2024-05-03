@@ -23,6 +23,7 @@ import { Month } from "../../data/Month";
 import { Degree } from "../../data/degree";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
+import { DisabledByDefault } from "@mui/icons-material";
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
 for (let i = nowYear; i > nowYear - 60; i--) {
@@ -37,6 +38,7 @@ type FormValues = {
     completionMonth: string;
     completionYear: number | null;
     location: string;
+    CGPA: string;
   }[];
 };
 
@@ -65,6 +67,7 @@ const Education = () => {
         completionMonth: "",
         completionYear: null,
         location: "",
+        CGPA: "",
       });
     }
   }, [fields]);
@@ -77,6 +80,7 @@ const Education = () => {
       completionMonth: "",
       completionYear: null,
       location: "",
+      CGPA: "",
     });
     setResumeData((prevData: any) => {
       return {
@@ -270,6 +274,46 @@ const Education = () => {
                         }
                       />
                     </Grid>
+                    <Grid item xs={12} md={6} lg={6} sx={{ p: 1 }}>
+                      <InputLabel className="formControl-label">
+                        CGPA
+                      </InputLabel>
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        placeholder="e.g. 9"
+                        fullWidth
+                        size="small"
+                        {...register(`education.${index}.CGPA` as const, {
+                          pattern: {
+                            value: /^\d*(\.\d+)?$/,
+                            message: "Only Numerics are allowed.",
+                          },
+                        })}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              {dirtyFields?.education?.[index]?.CGPA ? (
+                                !errors?.education?.[index]?.CGPA ? (
+                                  getValues(`education.${index}.CGPA`) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      <FormValidationError
+                        errorText={errors?.education?.[index]?.CGPA?.message}
+                      />
+                    </Grid>
                   </Grid>
                 </Box>
                 <Box sx={{ m: 2 }} className="formControl">
@@ -287,8 +331,10 @@ const Education = () => {
                           fullWidth
                           native
                           placeholder="Month"
+                          defaultValue={""}
                           {...register(`education.${index}.degree`)}
                         >
+                          <option value={""}>Please Select</option>
                           {Degree.map((x) => {
                             return (
                               <option value={x.name} key={x.name}>
@@ -311,9 +357,13 @@ const Education = () => {
                         <Select
                           fullWidth
                           native
+                          defaultValue={""}
                           placeholder="Month"
                           {...register(`education.${index}.completionMonth`)}
                         >
+                          <option value={""} disabled>
+                            {"Please Select"}
+                          </option>
                           {Month.map((x) => {
                             return (
                               <option
@@ -334,8 +384,12 @@ const Education = () => {
                           native
                           fullWidth
                           placeholder="Month"
+                          defaultValue={""}
                           {...register(`education.${index}.completionYear`)}
                         >
+                          <option value={""} disabled>
+                            {"Please Select"}
+                          </option>
                           {Year.map((x) => {
                             return (
                               <option value={x} key={x}>
@@ -366,16 +420,7 @@ const Education = () => {
           className="customActionBtn default"
           fullWidth
           startIcon={<AddIcon />}
-          onClick={() =>
-            append({
-              institutionName: "",
-              fieldOfStudy: "",
-              degree: "",
-              completionMonth: "",
-              completionYear: null,
-              location: "",
-            })
-          }
+          onClick={appendNew}
         >
           Add New
         </Button>

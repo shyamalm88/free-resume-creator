@@ -324,7 +324,7 @@ function PersonalInfo() {
                     message: "This field is required",
                   },
                   pattern: {
-                    value: /^\d+$/,
+                    value: /^[0-9]+$/,
                     message: "Only Numbers are allowed",
                   },
                   maxLength: {

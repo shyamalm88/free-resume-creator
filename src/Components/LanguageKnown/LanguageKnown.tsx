@@ -12,7 +12,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 
 const Year: any[] = [];
@@ -72,7 +72,7 @@ const LanguageKnown = () => {
                   >
                     <Grid item xs={12} md={12} lg={12} sx={{ p: 1 }}>
                       <InputLabel className="formControl-label">
-                        Fluent in Language
+                        Fluency in Language
                       </InputLabel>
                       <TextField
                         id="outlined-basic"
@@ -85,19 +85,37 @@ const LanguageKnown = () => {
                           {
                             pattern: {
                               value: /^[a-zA-Z]*$/,
-                              message: "Only Alphabets are allowed."
+                              message: "Only Alphabets are allowed.",
                             },
                           }
                         )}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                               {dirtyFields?.language?.[index]?.languageKnown ? !errors?.language?.[index]?.languageKnown ? getValues(`language.${index}.languageKnown`) ? <TaskAltIcon color="success" /> : <></> : <ErrorOutlineIcon color="error" /> : <></>}
+                              {dirtyFields?.language?.[index]?.languageKnown ? (
+                                !errors?.language?.[index]?.languageKnown ? (
+                                  getValues(
+                                    `language.${index}.languageKnown`
+                                  ) ? (
+                                    <TaskAltIcon color="success" />
+                                  ) : (
+                                    <></>
+                                  )
+                                ) : (
+                                  <ErrorOutlineIcon color="error" />
+                                )
+                              ) : (
+                                <></>
+                              )}
                             </InputAdornment>
                           ),
                         }}
                       />
-                      <FormValidationError errorText={errors?.language?.[index]?.languageKnown?.message}/>
+                      <FormValidationError
+                        errorText={
+                          errors?.language?.[index]?.languageKnown?.message
+                        }
+                      />
                     </Grid>
                   </Grid>
                 </Box>
@@ -105,7 +123,7 @@ const LanguageKnown = () => {
             );
           })}
         </Grid>
-        <ResumeTemplateChoose/>
+        <ResumeTemplateChoose />
       </Grid>
 
       <Box sx={{ px: 2 }}>

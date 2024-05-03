@@ -13,6 +13,7 @@ import BootStrapDialog, {
   Footer,
 } from "../BootStrapDialog/BootStrapDialog";
 import { templateData } from "../../../data/templateData";
+import useResumeTemplateContextProvider from "../../../hooks/useResumeTemplateContextProvider";
 const Template1 = React.lazy(() => import("../../ResumeTemplates/Template1"));
 const Template2 = React.lazy(() => import("../../ResumeTemplates/Template2"));
 
@@ -21,9 +22,24 @@ const components = {
   Template2,
 };
 
+let ChosenTemplate: any = null;
+
 const ResumeTemplateChoose = () => {
+  const [update, setUpdate] = React.useState(false);
+  const { activeTemplate, setActiveTemplate } =
+    useResumeTemplateContextProvider();
   const [openTemplateChooseModal, setOpenTemplateChooseModal] =
     React.useState(false);
+
+  const handleChooseTemplate = (templateName: string) => {
+    setActiveTemplate(templateName);
+  };
+
+  React.useEffect(() => {
+    ChosenTemplate = (components as any)[activeTemplate];
+    setUpdate(true);
+  }, [activeTemplate]);
+
   return (
     <Grid item xs={4} sx={{ mt: 10 }}>
       <Box
@@ -46,7 +62,7 @@ const ResumeTemplateChoose = () => {
             width: "190%",
           }}
         >
-          <Template1 />
+          {ChosenTemplate && update && <ChosenTemplate />}
         </div>
       </Box>
       <Box sx={{ justifyContent: "center", display: "flex", mt: 4 }}>
@@ -100,7 +116,12 @@ const ResumeTemplateChoose = () => {
                       </Box>
                     </CardContent>
                     <CardActions>
-                      <Button size="small">Choose</Button>
+                      <Button
+                        size="small"
+                        onClick={() => handleChooseTemplate(item.template)}
+                      >
+                        Choose
+                      </Button>
                     </CardActions>
                   </Box>
                 );

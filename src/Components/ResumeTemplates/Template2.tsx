@@ -19,7 +19,9 @@ import he from "he";
 const Template2 = () => {
   const context = useResumeDataContextProvider();
   const [data, setData] = React.useState(context.resumeData);
-  console.log(data);
+  React.useEffect(() => {
+    setData(context.resumeData);
+  }, [context]);
 
   return (
     <Grid container>
@@ -494,9 +496,10 @@ const Template2 = () => {
                 >
                   <Typography sx={{ fontWeight: "bold" }}>
                     {item.institutionName}
-                  </Typography>
-                  <Typography sx={{ fontWeight: "bold" }}>
+                    <br />
                     {item.fieldOfStudy}
+                    <br />
+                    {item.degree}
                   </Typography>
                   <Stack direction="column">
                     <Typography sx={{ fontSize: ".7rem", color: "#8d8d8d" }}>
@@ -512,8 +515,42 @@ const Template2 = () => {
                   variant="body1"
                   component="div"
                 >
-                  {item.degree}
+                  {item.CGPA && `CGPA: ${item.CGPA}`}
                 </Typography>
+              </Box>
+            );
+          })}
+        </Stack>
+      </Grid>
+      <Grid item xs={12}>
+        <Stack direction="column" sx={{ mt: 2 }}>
+          <Divider
+            textAlign="left"
+            sx={{
+              "&::before": {
+                width: "0%",
+              },
+              ".MuiDivider-wrapper": {
+                background: "#e7e7e7",
+              },
+            }}
+          >
+            <Typography sx={{ fontWeight: "bold", fontSize: "1.3rem" }}>
+              Language Known
+            </Typography>
+          </Divider>
+          {data.language.map((item: any, index: number) => {
+            return (
+              <Box sx={{ mt: 1 }} key={index}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    {item.languageKnown}
+                  </Typography>
+                </Stack>
               </Box>
             );
           })}

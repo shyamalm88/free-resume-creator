@@ -195,9 +195,13 @@ const Certifications = () => {
                         <Select
                           fullWidth
                           native
+                          defaultValue={""}
                           placeholder="Month"
                           {...register(`certifications.${index}.issueMonth`)}
                         >
+                          <option value={""} disabled>
+                            {"Please Select"}
+                          </option>
                           {Month.map((x) => {
                             return (
                               <option
@@ -220,6 +224,9 @@ const Certifications = () => {
                           placeholder="Year"
                           {...register(`certifications.${index}.issueYear`)}
                         >
+                          <option value={""} disabled>
+                            {"Please Select"}
+                          </option>
                           {Year.map((x) => {
                             return (
                               <option value={x} key={x}>
@@ -241,6 +248,9 @@ const Certifications = () => {
                             `certifications.${index}.expirationMonth`
                           )}
                         >
+                          <option value={""} disabled>
+                            {"Please Select"}
+                          </option>
                           {Month.map((x) => {
                             return (
                               <option
@@ -265,6 +275,9 @@ const Certifications = () => {
                             `certifications.${index}.expirationYear`
                           )}
                         >
+                          <option value={""} disabled>
+                            {"Please Select"}
+                          </option>
                           {Year.map((x) => {
                             return (
                               <option value={x} key={x}>
