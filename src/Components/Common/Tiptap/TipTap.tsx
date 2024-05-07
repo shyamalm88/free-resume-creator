@@ -6,7 +6,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { Button, ButtonGroup, ClickAwayListener, Stack } from "@mui/material";
 import FormatBoldOutlinedIcon from "@mui/icons-material/FormatBoldOutlined";
 import FormatItalicOutlinedIcon from "@mui/icons-material/FormatItalicOutlined";
-import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
+// import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import { ComponentInputProps } from "../../../types";
 import he from "he";
 

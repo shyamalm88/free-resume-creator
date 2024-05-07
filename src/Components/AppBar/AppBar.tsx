@@ -1,5 +1,5 @@
 import { ArrowBackIosNew } from "@mui/icons-material";
-import { AppBar, Button, IconButton, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Button, IconButton, Toolbar } from "@mui/material";
 import React from "react";
 import useResumeStageContextProvider from "../../hooks/useResumeStageContextProvider";
 import MenuIcon from "@mui/icons-material/Menu";

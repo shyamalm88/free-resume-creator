@@ -9,7 +9,7 @@ import {
   Grid,
   InputAdornment,
   InputLabel,
-  MenuItem,
+  // MenuItem,
   Select,
   Stack,
   TextField,
@@ -18,7 +18,7 @@ import {
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddIcon from "@mui/icons-material/Add";
 import TipTapEditor from "../Common/Tiptap/TipTap";
-import { useFormContext, useFieldArray, Controller } from "react-hook-form";
+import { useFormContext, useFieldArray } from "react-hook-form";
 import InfoIcon from "@mui/icons-material/Info";
 import { Month } from "../../data/Month";
 import FormValidationError from "../Common/FormValidationError/FormValidationError";
@@ -50,10 +50,10 @@ const ProfessionalExperience = () => {
   const {
     register,
     control,
-    setValue,
+    // setValue,
     getValues,
-    watch,
-    trigger,
+    // watch,
+    // trigger,
     formState: { errors, dirtyFields },
   } = useFormContext<FormValues>();
   const { fields, append, remove } = useFieldArray({
@@ -61,7 +61,7 @@ const ProfessionalExperience = () => {
     control,
   });
 
-  const { resumeData, setResumeData } = useResumeDataContextProvider();
+  const { setResumeData } = useResumeDataContextProvider();
 
   React.useEffect(() => {
     console.log(fields);

@@ -11,6 +11,7 @@ import {
 import React from "react";
 import useResumeStageContextProvider from "../../hooks/useResumeStageContextProvider";
 import useAppMenuContextProvider from "../../hooks/useAppMenuContextProvider";
+import { isMobile } from "react-device-detect";
 
 const steps = [
   {
@@ -73,7 +74,7 @@ const LeftDrawer = ({ drawerWidth }: any) => {
   }, [activeStep]);
 
   const handleStep = (index: number) => {
-    setDisplayAppMenu(false);
+    isMobile && setDisplayAppMenu(false);
     setActiveStep(index);
   };
 

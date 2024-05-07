@@ -6,7 +6,7 @@ import {
   Grid,
   InputAdornment,
   InputLabel,
-  MenuItem,
+  // MenuItem,
   Select,
   Stack,
   TextField,
@@ -23,7 +23,6 @@ import { Month } from "../../data/Month";
 import { Degree } from "../../data/degree";
 import ResumeTemplateChoose from "../Common/ResumeTemplateChoose/ResumeTemplateChoose";
 import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
-import { DisabledByDefault } from "@mui/icons-material";
 const Year: any[] = [];
 const nowYear = new Date().getFullYear();
 for (let i = nowYear; i > nowYear - 60; i--) {
@@ -54,7 +53,7 @@ const Education = () => {
     control,
   });
 
-  const { resumeData, setResumeData } = useResumeDataContextProvider();
+  const { setResumeData } = useResumeDataContextProvider();
 
   React.useEffect(() => {
     console.log(fields);

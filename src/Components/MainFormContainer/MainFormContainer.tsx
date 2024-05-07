@@ -6,33 +6,7 @@ import useResumeStageContextProvider from "../../hooks/useResumeStageContextProv
 import useResumeDataContextProvider from "../../hooks/useResumeDataContextProvider";
 
 import { useForm, FormProvider } from "react-hook-form";
-
-const defaultValues = {
-  firstName: null,
-  lastName: null,
-  middleName: null,
-  profession: null,
-  city: null,
-  country: null,
-  pinCode: null,
-  mobileNo: null,
-  email: null,
-  linkedin: null,
-  github: null,
-  personalWebSite: null,
-  softSkills: null,
-  technicalSkills: null,
-  experience: [
-    {
-      jobTitle: null,
-      company: null,
-      startMonth: null,
-      startYear: null,
-      endMonth: null,
-      endYear: null,
-    },
-  ],
-};
+import { isMobile } from "react-device-detect";
 
 const MainFormContainer = () => {
   const { activeStep } = useResumeStageContextProvider();
@@ -72,17 +46,27 @@ const MainFormContainer = () => {
   };
   return (
     <FormProvider {...methods}>
-      <Container>
+      <Container disableGutters={isMobile}>
         <form onSubmit={methods.handleSubmit(onSubmit)} onChange={onChange}>
           <Box
             component="main"
-            sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+            sx={{
+              flexGrow: 1,
+              bgcolor: "background.default",
+              p: isMobile ? 1 : 3,
+            }}
           >
             <Toolbar />
 
             <SwitchResumeComponent activeStep={activeStep} />
           </Box>
-          <Box sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              bgcolor: "background.default",
+              p: isMobile ? 1 : 3,
+            }}
+          >
             <ActionButtons />
           </Box>
           <input type="submit" id="submit" style={{ visibility: "visible" }} />
