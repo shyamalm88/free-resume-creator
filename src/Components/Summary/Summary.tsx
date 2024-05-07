@@ -19,6 +19,7 @@ type FormValues = {
 
 const Summary = () => {
   const {
+    register,
     setValue,
     control,
     formState: { errors },
@@ -39,11 +40,16 @@ const Summary = () => {
   }, [fields]);
 
   const handleEditorChange = ({ editor }: any, control: any) => {
-    // setQuestion(encodedHtml);
-    setValue(control, editor.getHTML().replace(/\s/g, "&nbsp;"), {
-      shouldDirty: true,
-      shouldTouch: true,
-    });
+    const element = document.getElementsByName(control)[0];
+    const nativeInputValueSetter = (Object as any).getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value"
+    ).set;
+
+    let val: any = editor.getHTML().replace(/\s/g, "&nbsp;");
+    nativeInputValueSetter.call(element, val);
+    const event = new Event("change", { bubbles: true, cancelable: false });
+    element.dispatchEvent(event);
   };
 
   return (
@@ -91,12 +97,16 @@ const Summary = () => {
                     dataContext={field.profileSummary}
                     shouldUpdate={false}
                   />
+                  <input
+                    type="text"
+                    {...register(`summary.${index}.profileSummary`)}
+                  />
                 </Box>
               </React.Fragment>
             );
           })}
         </Grid>
-        <ResumeTemplateChoose/>
+        <ResumeTemplateChoose />
       </Grid>
     </>
   );

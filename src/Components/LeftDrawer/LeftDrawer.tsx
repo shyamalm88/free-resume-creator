@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import useResumeStageContextProvider from "../../hooks/useResumeStageContextProvider";
+import useAppMenuContextProvider from "../../hooks/useAppMenuContextProvider";
 
 const steps = [
   {
@@ -53,7 +54,9 @@ const LeftDrawer = ({ drawerWidth }: any) => {
     setOptionalButtonText,
     setActiveStep,
   } = useResumeStageContextProvider();
-  console.log(activeStep);
+  const { displayAppMenu, setDisplayAppMenu } = useAppMenuContextProvider();
+  // console.log(activeStep);
+  console.log(displayAppMenu);
 
   React.useEffect(() => {
     if (steps[activeStep + 1]) {
@@ -69,43 +72,52 @@ const LeftDrawer = ({ drawerWidth }: any) => {
     }
   }, [activeStep]);
 
-  return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
+  const handleStep = (index: number) => {
+    setDisplayAppMenu(false);
+    setActiveStep(index);
+  };
 
-        "& .MuiDrawer-paper": {
-          width: drawerWidth,
-          boxSizing: "border-box",
-          background: "#07142b",
-          color: "#fff",
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
-      <Toolbar />
-      <Box sx={{ maxWidth: drawerWidth, px: 2 }}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={step.label}>
-              <StepLabel
-                sx={{ color: "#fff", cursor: "pointer" }}
-                onClick={() => setActiveStep(index)}
-              >
-                <span style={{ color: "#fff", cursor: "pointer" }}>
-                  {step.label}
-                </span>
-              </StepLabel>
-              <StepContent TransitionProps={{ unmountOnExit: false }}>
-                <Typography>{step.description}</Typography>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-      </Box>
-    </Drawer>
+  return (
+    <>
+      {displayAppMenu && (
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              background: "#07142b",
+              color: "#fff",
+            },
+          }}
+          variant="permanent"
+          anchor="left"
+        >
+          <Toolbar />
+          <Box sx={{ maxWidth: drawerWidth, px: 2 }}>
+            <Stepper activeStep={activeStep} orientation="vertical">
+              {steps.map((step, index) => (
+                <Step key={step.label}>
+                  <StepLabel
+                    sx={{ color: "#fff", cursor: "pointer" }}
+                    onClick={() => handleStep(index)}
+                  >
+                    <span style={{ color: "#fff", cursor: "pointer" }}>
+                      {step.label}
+                    </span>
+                  </StepLabel>
+                  <StepContent TransitionProps={{ unmountOnExit: false }}>
+                    <Typography>{step.description}</Typography>
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
+          </Box>
+        </Drawer>
+      )}
+    </>
   );
 };
 

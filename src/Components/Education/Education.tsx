@@ -317,7 +317,7 @@ const Education = () => {
                   </Grid>
                 </Box>
                 <Box sx={{ m: 2 }} className="formControl">
-                  <Stack direction="row" gap={4}>
+                  <Stack direction="column" gap={4}>
                     <Grid
                       container
                       spacing={{ xs: 2, md: 3 }}

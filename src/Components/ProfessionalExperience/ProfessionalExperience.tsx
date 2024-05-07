@@ -293,7 +293,7 @@ const ProfessionalExperience = () => {
                   </Grid>
                 </Box>
                 <Box sx={{ m: 2 }} className="formControl">
-                  <Stack direction="row" gap={4}>
+                  <Stack direction="column" gap={4}>
                     <Grid
                       container
                       spacing={{ xs: 2, md: 3 }}
@@ -318,6 +318,7 @@ const ProfessionalExperience = () => {
                             }
                           )}
                         >
+                          <option value="">Please Select</option>
                           {Month.map((x) => {
                             return (
                               <option
@@ -365,6 +366,7 @@ const ProfessionalExperience = () => {
                             }
                           )}
                         >
+                          <option value="">Please Select</option>
                           {Year.map((x) => {
                             return (
                               <option value={x} key={x}>
@@ -406,6 +408,7 @@ const ProfessionalExperience = () => {
                               }
                             )}
                           >
+                            <option value="">Please Select</option>
                             {Month.map((x) => {
                               return (
                                 <option
@@ -443,6 +446,7 @@ const ProfessionalExperience = () => {
                               },
                             })}
                           >
+                            <option value="">Please Select</option>
                             {Year.map((x) => {
                               return (
                                 <option value={x} key={x}>

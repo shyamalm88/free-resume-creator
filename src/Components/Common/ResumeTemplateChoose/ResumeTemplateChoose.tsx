@@ -14,6 +14,7 @@ import BootStrapDialog, {
 } from "../BootStrapDialog/BootStrapDialog";
 import { templateData } from "../../../data/templateData";
 import useResumeTemplateContextProvider from "../../../hooks/useResumeTemplateContextProvider";
+import { isMobile } from "react-device-detect";
 const Template1 = React.lazy(() => import("../../ResumeTemplates/Template1"));
 const Template2 = React.lazy(() => import("../../ResumeTemplates/Template2"));
 
@@ -65,7 +66,7 @@ const ResumeTemplateChoose = () => {
           {ChosenTemplate && update && <ChosenTemplate />}
         </div>
       </Box>
-      <Box sx={{ justifyContent: "center", display: "flex", mt: 4 }}>
+      <Box sx={{ justifyContent: "center", display: "flex", my: 4 }}>
         <Button
           variant="outlined"
           className="customActionBtn"
@@ -82,7 +83,12 @@ const ResumeTemplateChoose = () => {
       >
         <Content>
           <Container>
-            <Box sx={{ display: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: isMobile ? `column` : `row`,
+              }}
+            >
               {templateData.map((item) => {
                 const SpecificComponent = (components as any)[item.template];
                 return (
@@ -118,6 +124,7 @@ const ResumeTemplateChoose = () => {
                     <CardActions>
                       <Button
                         size="small"
+                        variant="outlined"
                         onClick={() => handleChooseTemplate(item.template)}
                       >
                         Choose

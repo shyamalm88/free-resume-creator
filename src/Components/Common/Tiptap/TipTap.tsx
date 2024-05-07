@@ -46,13 +46,13 @@ const MenuBar = ({ editor, editable }: any) => {
               >
                 <FormatItalicOutlinedIcon fontSize="small" />
               </Button>
-              <Button
+              {/* <Button
                 size="small"
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 className={editor.isActive("bulletList") ? "is-active" : ""}
               >
                 <FormatListBulletedOutlinedIcon />
-              </Button>
+              </Button> */}
             </ButtonGroup>
           </Stack>
         )}

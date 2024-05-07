@@ -2,6 +2,7 @@ import { Box, Button, Stack } from "@mui/material";
 import React from "react";
 import useResumeStageContextProvider from "../../hooks/useResumeStageContextProvider";
 import DemographicAndVisaStatus from "../DemographicAndVisaStatus/DemographicAndVisaStatus";
+import { isMobile } from "react-device-detect";
 
 const ActionButtons = () => {
   const [open, setOpen] = React.useState(false);
@@ -18,7 +19,11 @@ const ActionButtons = () => {
   return (
     <>
       <Box sx={{ p: 2 }}>
-        <Stack spacing={2} direction="row" justifyContent="space-between">
+        <Stack
+          spacing={2}
+          direction={isMobile ? `column` : `row`}
+          justifyContent="space-between"
+        >
           {optionalButtonText ? (
             <Button
               variant="contained"
@@ -31,7 +36,7 @@ const ActionButtons = () => {
           ) : (
             <span></span>
           )}
-          <Stack spacing={2} direction="row">
+          <Stack spacing={2} direction={isMobile ? `column` : `row`}>
             <Button
               variant="outlined"
               color="warning"
